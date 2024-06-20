@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+
+  --main: #21262f;
+  --secondary: #2c323b;
+  --secondary-200: #2f3743;
+  --teal: #24b9e2;
+  --gray: #e2e2e2;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--teal);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: var(--main);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: var(--main);
+    border-radius: 7px;
+  }
+}
+
+@layer base {
+  html {
+    @apply bg-main;
+  }
+
+  input {
+    @apply outline-none px-2 placeholder:italic placeholder:text-secondary-200;
+  }
+
+  .my-side-nav a.active {
+    background: linear-gradient(
+      125deg,
+      var(--teal),
+      var(--secondary)
+     
+    );
+    box-shadow: 0 0 5px var(--teal);
+    border-color: var(--teal);
+  }
+
+  :is(.show-tooltip, .logout-btn, .dashboard-user):is(:hover, :focus) {
+    .absolute {
+      opacity: 1 !important;
+      pointer-events: initial;
+    }
+  }
+}
