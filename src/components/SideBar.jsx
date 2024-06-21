@@ -51,7 +51,7 @@ const SideBar = () => {
 
   useEffect(() => {
     const checkIsMobile = () => {
-      if (window.innerWidth <= 640) {
+      if (window.innerWidth <= 700) {
         setIsSideBarHidden(true);
         setIsMenuHidden(true);
       } else {
@@ -72,8 +72,8 @@ const SideBar = () => {
     dispatch(logOut({ userId: user._id, token: user.token }));
   };
 
-  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-2 flex-nowrap items-center lg:text-xl bg-secondary-800  rounded-md px-2 py-1 tranistion hover:bg-main hover:border-mainBreakColor ${
-    isSideBarHidden && "justify-center"
+  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion hover:bg-main hover:border-mainBreakColor ${
+    isSideBarHidden && " justify-center md:py-[6px]  "
   } font-bold show-tooltip`;
 
   const absoluteTooltipStyle =
@@ -82,21 +82,21 @@ const SideBar = () => {
   return (
     <>
       <aside
-        className={`transition flex flex-col text-secondarybreakColor bg-secondary-200 min-h-screen sm:w-2/10 lg:w-1/6 p-2 lg:p-3  ${
-          isSideBarHidden ? "w-16 md:w-16 lg:w-16" : "overflow-y-auto"
+        className={`transition flex flex-col text-secondarybreakColor bg-secondary-200 min-h-[100svh] sm:w-2/10 lg:max-w-[240px] p-2 lg:p-3 px-2 lg:px-3 ${
+          isSideBarHidden ? "w-14 md:w-14 lg:w-14 lg:px-[8px]" : "overflow-y-auto"
         }`}
       >
         {/* head */}
         {!isMenuHidden && (
           <span
-            className={`flex gap-2 flex-wrap-reverse items-center text-xl md:text-3xl w-full  transition mt-2  ${
+            className={`flex gap-3 flex-wrap-reverse items-center text-3xl w-full  transition mt-2  ${
               isSideBarHidden ? " justify-center" : "justify-between"
             } `}
           >
             {!isSideBarHidden && (
               <span className="text-sm lg:text-lg xl:text-xl text-mainBreakColor font-bold capitalize flex items-center">
                 <img
-                  className="rounded  max-w-8 object-cover aspect-square inline-block mx-1 "
+                  className="rounded  max-w-8 object-cover aspect-square inline-block mr-2 "
                   src={logo}
                   alt="logo"
                 />
@@ -122,7 +122,7 @@ const SideBar = () => {
 
         {/* user*/}
         <div
-          className={`dashboard-user relative border-b-2 border-secondarybreakColor pt-6 pb-3 font-medium flex gap-2 flex-nowrap items-center ${
+          className={`dashboard-user relative border-b-2 border-secondarybreakColor pt-6 pb-3 font-medium flex gap-3 flex-nowrap items-center ${
             isSideBarHidden && "justify-center"
           }`}
         >
@@ -147,7 +147,7 @@ const SideBar = () => {
         <ul
           className={`${
             isSideBarHidden ? "my-4" : "my-6"
-          } my-side-nav flex-1 space-y-2 lg:space-y-3 `}
+          } my-side-nav flex-1 space-y-3 lg:space-y-4 `}
         >
           {navLinks.map(({ name, path, icon }) => (
             <li key={name}>
@@ -169,7 +169,7 @@ const SideBar = () => {
             onClick={handleLogOut}
             className={
               linkStyle +
-              " cursor-pointer logout-btn bg-red-700  hover:bg-red-900 hover:border-gray-200"
+              " cursor-pointer logout-btn bg-red-800 hover:bg-red-800 hover:border-gray-300"
             }
           >
             <RiLogoutCircleLine className="w-6 flex-shrink-0 " />
@@ -178,7 +178,7 @@ const SideBar = () => {
                 isSideBarHidden
                   ? absoluteTooltipStyle +
                     " shadow-gray-600 " +
-                    " bg-red-700 text-white"
+                    " bg-red-800 text-white"
                   : ""
               }
             >

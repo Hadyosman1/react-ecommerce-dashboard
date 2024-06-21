@@ -5,6 +5,12 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import UsersPage from "./pages/UsersPage";
 import ProfilePage from "./pages/ProfilePage";
+import RootForgetPassLayout from "./layouts/forget-pass-layouts/RootForgetPassLayout";
+import ConfirmEmail from "./layouts/forget-pass-layouts/ConfirmEmail";
+import CahngePass from "./layouts/forget-pass-layouts/CahngePass";
+
+//-------
+import "notyf/notyf.min.css";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +36,20 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    path: "forget_password",
+    element: <RootForgetPassLayout />,
+    children: [
+      {
+        path: "",
+        element: <ConfirmEmail />,
+      },
+      {
+        path: "change_password",
+        element: <CahngePass />,
       },
     ],
   },

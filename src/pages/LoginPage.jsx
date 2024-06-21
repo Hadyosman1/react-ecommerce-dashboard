@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../store/slices/authSlice";
 import SmallLoadingSpinner from "../atoms/SmallLoadingSpinner";
+import PasswordInput from "../atoms/PasswordInput";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -71,17 +72,14 @@ const LoginPage = () => {
                 </label>
               </div>
               <div className="mt-2">
-                <input
-                  placeholder="at least 8 digits"
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  minLength={8}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-mainBreakColor sm:text-sm sm:leading-6"
-                />
+                <PasswordInput id={"password"} name={"password"} />
               </div>
+              <Link
+                to="forget_password"
+                className="float-end mt-1 mb-3 inline-block  text-sky-500"
+              >
+                Forgot Password ?
+              </Link>
             </div>
             <div>
               <button

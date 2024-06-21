@@ -12,6 +12,9 @@ const RootLayout = () => {
       navigate("/");
     }
   }, [user, navigate]);
+
+
+  
   return (
     <>
       <div className=" min-h-screen flex gap-1 md:gap-3">

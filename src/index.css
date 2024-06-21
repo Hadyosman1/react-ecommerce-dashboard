@@ -6,14 +6,16 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
 
-  --main: #21262f;
-  --secondary: #2c323b;
-  --secondary-200: #2f3743;
-  --teal: #24b9e2;
-  --gray: #e2e2e2;
+  
+
+  --main: #212730;
+  --secondary: #252b34;
+  --secondary-200: #2f3744;
+  --teal: #22b3dc;
+  --gray: #e5e5e5;
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 7px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: var(--teal);
@@ -34,17 +36,22 @@
     @apply bg-main;
   }
 
+  label {
+    cursor: pointer;
+  }
+
   input {
-    @apply outline-none px-2 placeholder:italic placeholder:text-secondary-200;
+    @apply outline-none 
+    px-2 
+    bg-white 
+    text-slate-700
+    font-semibold
+    placeholder:italic
+    placeholder:text-secondary-200;
   }
 
   .my-side-nav a.active {
-    background: linear-gradient(
-      125deg,
-      var(--teal),
-      var(--secondary)
-     
-    );
+    background: linear-gradient(125deg, var(--teal), var(--secondary));
     box-shadow: 0 0 5px var(--teal);
     border-color: var(--teal);
   }
@@ -53,6 +60,13 @@
     .absolute {
       opacity: 1 !important;
       pointer-events: initial;
+    }
+  }
+
+  .password-input-wrapper:has(input:focus) {
+    &,
+    input {
+      box-shadow: 0 0 0 2px var(--teal) inset;
     }
   }
 }
