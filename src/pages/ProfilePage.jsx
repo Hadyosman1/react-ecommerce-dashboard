@@ -1,5 +1,5 @@
 const ProfilePage = () => {
-  return <section className="bg-secondary-800">ProfilePage</section>;
+  return <section className="">ProfilePage</section>;
 };
 
 export default ProfilePage;

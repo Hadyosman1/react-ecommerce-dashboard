@@ -6,8 +6,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
 
-  
-
   --main: #212730;
   --secondary: #252b34;
   --secondary-200: #2f3744;
@@ -16,6 +14,7 @@
 
   ::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: var(--teal);
@@ -40,6 +39,11 @@
     cursor: pointer;
   }
 
+  button:disabled {
+    cursor: wait;
+    opacity: 0.5;
+  }
+
   input {
     @apply outline-none 
     px-2 
@@ -54,6 +58,10 @@
     background: linear-gradient(125deg, var(--teal), var(--secondary));
     box-shadow: 0 0 5px var(--teal);
     border-color: var(--teal);
+  }
+
+  div.upload:has(input[type="file"]:focus) {
+    box-shadow: 0 0 0 2px var(--teal) inset;
   }
 
   :is(.show-tooltip, .logout-btn, .dashboard-user):is(:hover, :focus) {

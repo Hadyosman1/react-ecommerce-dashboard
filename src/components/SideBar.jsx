@@ -82,7 +82,7 @@ const SideBar = () => {
   return (
     <>
       <aside
-        className={`transition flex flex-col text-secondarybreakColor bg-secondary-200 min-h-[100svh] sm:w-2/10 lg:max-w-[240px] p-2 lg:p-3 px-2 lg:px-3 ${
+        className={`transition flex flex-col text-secondarybreakColor bg-secondary-200 sm:w-2/10 lg:max-w-[240px] p-2 lg:p-3 px-2 lg:px-3 ${
           isSideBarHidden ? "w-14 md:w-14 lg:w-14 lg:px-[8px]" : "overflow-y-auto"
         }`}
       >
@@ -169,7 +169,7 @@ const SideBar = () => {
             onClick={handleLogOut}
             className={
               linkStyle +
-              " cursor-pointer logout-btn bg-red-800 hover:bg-red-800 hover:border-gray-300"
+              " cursor-pointer logout-btn bg-red-600 hover:bg-red-800 hover:border-gray-300"
             }
           >
             <RiLogoutCircleLine className="w-6 flex-shrink-0 " />
@@ -178,7 +178,7 @@ const SideBar = () => {
                 isSideBarHidden
                   ? absoluteTooltipStyle +
                     " shadow-gray-600 " +
-                    " bg-red-800 text-white"
+                    " bg-red-600 text-white"
                   : ""
               }
             >

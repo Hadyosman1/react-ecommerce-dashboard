@@ -3,6 +3,7 @@ import SideBar from "../components/SideBar";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SmallLoadingSpinner from "../atoms/SmallLoadingSpinner";
+import MyModal from "../atoms/MyModal";
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -13,13 +14,12 @@ const RootLayout = () => {
     }
   }, [user, navigate]);
 
-
-  
   return (
     <>
-      <div className=" min-h-screen flex gap-1 md:gap-3">
+      <MyModal />
+      <div className="h-svh flex gap-1 md:gap-3 ">
         <SideBar />
-        <div className="flex-grow ">
+        <div className="flex-grow overflow-x-hidden overflow-y-auto h-svh bg-secondary-800 py-8 px-2 md:px-3 ">
           <Outlet />
         </div>
       </div>
