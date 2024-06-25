@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SmallLoadingSpinner from "../atoms/SmallLoadingSpinner";
 import MyModal from "../atoms/MyModal";
+import ImageLightBox from "../atoms/ImageLightBox";
 
 const RootLayout = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const RootLayout = () => {
 
   return (
     <>
+      <ImageLightBox />
       <MyModal />
       <div className="h-svh flex gap-1 md:gap-3 ">
         <SideBar />

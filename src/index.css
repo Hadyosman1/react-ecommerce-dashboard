@@ -35,6 +35,10 @@
     @apply bg-main;
   }
 
+  body {
+    @apply overflow-y-hidden;
+  }
+
   label {
     cursor: pointer;
   }
@@ -49,9 +53,21 @@
     px-2 
     bg-white 
     text-slate-700
-    font-semibold
+    font-medium
     placeholder:italic
     placeholder:text-secondary-200;
+  }
+
+  textarea {
+    @apply font-medium;
+  }
+
+  select {
+    @apply text-secondary-200 capitalize;
+
+    option {
+      @apply text-slate-700;
+    }
   }
 
   .my-side-nav a.active {
@@ -75,6 +91,30 @@
     &,
     input {
       box-shadow: 0 0 0 2px var(--teal) inset;
+    }
+  }
+
+  div.relative:has(.absolute_desc) {
+    .absolute_desc {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px var(--secondary);
+      background-color: var(--teal);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+      color: #fff;
+      visibility: hidden;
+      z-index: 2;
+    }
+
+    .absolute_desc.show {
+      visibility: visible;
     }
   }
 }

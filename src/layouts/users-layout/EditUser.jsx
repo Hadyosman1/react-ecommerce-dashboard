@@ -1,17 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
-import UsersPageHeader from "../../atoms/UsersPageHeader";
+import UsersPageHeader from "../../atoms/PageHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { LuImagePlus } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import VerySmallSpinner from "../../atoms/VerySmallSpinner";
-import { Notyf } from "notyf";
 import {
   getSingleUser,
   getUsersRoles,
   updateUser,
 } from "../../store/slices/usersSlice";
 import RoundedLoader from "../../atoms/RoundedLoader";
-const notyf = new Notyf();
+import { openImageLightBox } from "../../store/slices/imageLightBoxSlice";
+import checkFileSize from "../../utils/checkFileSize";
 
 const EditUser = () => {
   const { roles, isPending, singleUser } = useSelector(
@@ -42,11 +42,7 @@ const EditUser = () => {
     e.preventDefault();
 
     if (uploadedImage?.name) {
-      const size = uploadedImage.size / 1024 / 100;
-
-      if (size.toFixed() >= 31) {
-        return notyf.error("image must be less than 3 MB..!");
-      }
+      return checkFileSize(uploadedImage);
     }
 
     const formData = new FormData();
@@ -62,14 +58,14 @@ const EditUser = () => {
 
   return (
     <section className="text-secondarybreakColor">
-      <UsersPageHeader title={"Edit User"} />
+      <UsersPageHeader redirectTo="/dashboard/users" title={"Edit User"} />
       {!isPending ? (
-        <div className="max-w-lg mx-auto my-8  bg-white dark:bg-gray-800 rounded-lg shadow-md px-4 py-6 md:px-8 md:py-10 flex flex-col items-center">
+        <div className="max-w-lg mx-auto my-8 bg-white rounded-lg shadow-md px-4 py-6 md:px-8 md:py-10 flex flex-col items-center">
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
             <div className="flex items-start flex-col justify-start">
               <label
                 htmlFor="firstName"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
+                className="text-sm text-mainBreakColor   mr-2"
               >
                 First Name:
               </label>
@@ -86,14 +82,14 @@ const EditUser = () => {
                 required
                 id="firstName"
                 name="firstName"
-                className="w-full px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                className="w-full px-2 placeholder:text-gray-400   py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
               />
             </div>
 
             <div className="flex items-start flex-col justify-start">
               <label
                 htmlFor="lastName"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
+                className="text-sm text-mainBreakColor  mr-2"
               >
                 Last Name:
               </label>
@@ -110,15 +106,12 @@ const EditUser = () => {
                 required
                 id="lastName"
                 name="lastName"
-                className="w-full px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                className="w-full px-2 placeholder:text-gray-400   py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
               />
             </div>
 
             <div className="flex items-start flex-col justify-start">
-              <label
-                htmlFor="email"
-                className="text-sm text-sky-800  dark:text-gray-200 mr-2"
-              >
+              <label htmlFor="email" className="text-sm text-sky-800   mr-2">
                 Email:
               </label>
               <input
@@ -130,7 +123,7 @@ const EditUser = () => {
                 id="email"
                 autoComplete="email"
                 name="email"
-                className="w-full opacity-70 pointer-events-none px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                className="w-full opacity-70 pointer-events-none px-2 placeholder:text-gray-400  py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
               />
               <span className="text-sm bg-orange-800 p-1 px-2 mt-1 rounded font-semibold">
                 {"You Can't Change E-mail"}
@@ -140,7 +133,7 @@ const EditUser = () => {
             <div className="relative flex items-start flex-col justify-start">
               <label
                 htmlFor="avatar"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
+                className="text-sm text-mainBreakColor mr-2"
               >
                 Avatar:
               </label>
@@ -182,7 +175,16 @@ const EditUser = () => {
                   `}
                 >
                   <img
-                    className="max-h-52 lg:max-w-40 lg:max-h-32 bg-slate-100 rounded border-2 border-slate-400"
+                    onClick={() =>
+                      dispatch(
+                        openImageLightBox({
+                          image: uploadedImage.name
+                            ? URL.createObjectURL(uploadedImage)
+                            : formInputsData.avatar,
+                        })
+                      )
+                    }
+                    className="cursor-pointer max-h-52 lg:max-w-40 lg:max-h-32 bg-slate-100 rounded border-2 border-slate-400"
                     src={
                       uploadedImage.name
                         ? URL.createObjectURL(uploadedImage)
@@ -197,7 +199,7 @@ const EditUser = () => {
             <div className="flex items-start flex-col justify-start">
               <label
                 htmlFor="role"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
+                className="text-sm text-mainBreakColor   mr-2"
               >
                 Role:
               </label>
@@ -211,7 +213,7 @@ const EditUser = () => {
                 value={formInputsData.role}
                 id="role"
                 name="role"
-                className="w-full cursor-pointer px-2 text-slate-600  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                className="w-full cursor-pointer px-2 text-slate-600   py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
               >
                 {roles.map((role) => (
                   <option key={role} value={role}>

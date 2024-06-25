@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logOut } from "../store/slices/authSlice";
 
 //pictures
@@ -72,18 +72,21 @@ const SideBar = () => {
     dispatch(logOut({ userId: user._id, token: user.token }));
   };
 
-  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion hover:bg-main hover:border-mainBreakColor ${
-    isSideBarHidden && " justify-center md:py-[6px]  "
+  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-mainBreakColor hover:bg-main hover:border-mainBreakColor ${
+    isSideBarHidden && " justify-center md:py-[6px]  tranistion "
   } font-bold show-tooltip`;
 
-  const absoluteTooltipStyle =
-    "absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-mainBreakColor rounded-sm py-2 px-3 transition pointer-events-none opacity-0 ";
+  const absoluteTooltipStyle = `absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-mainBreakColor rounded-sm py-2 px-3 ${
+    isSideBarHidden && " transition "
+  } pointer-events-none opacity-0 `;
 
   return (
     <>
       <aside
-        className={`transition flex flex-col text-secondarybreakColor bg-secondary-200 sm:w-2/10 lg:max-w-[240px] p-2 lg:p-3 px-2 lg:px-3 ${
-          isSideBarHidden ? "w-14 md:w-14 lg:w-14 lg:px-[8px]" : "overflow-y-auto"
+        className={`transition flex-shrink-0 flex flex-col text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
+          isSideBarHidden
+            ? " w-14 md:w-14 lg:w-14 lg:px-[8px] "
+            : " sm:w-2/10 w-60 "
         }`}
       >
         {/* head */}
@@ -121,8 +124,9 @@ const SideBar = () => {
         {/* head */}
 
         {/* user*/}
-        <div
-          className={`dashboard-user relative border-b-2 border-secondarybreakColor pt-6 pb-3 font-medium flex gap-3 flex-nowrap items-center ${
+        <Link
+          to={"profile"}
+          className={`dashboard-user relative border-b-2 border-secondarybreakColor mt-6 pb-3 font-medium flex gap-3 flex-nowrap items-center hover:[filter:brightness(110%)]  ${
             isSideBarHidden && "justify-center"
           }`}
         >
@@ -141,7 +145,7 @@ const SideBar = () => {
             </h1>
             <h2 className="lowercase first-letter:capitalize">{user.role}</h2>
           </div>
-        </div>
+        </Link>
         {/* user*/}
 
         <ul
@@ -167,18 +171,15 @@ const SideBar = () => {
         <div className="pt-3 border-t border-secondarybreakColor">
           <span
             onClick={handleLogOut}
-            className={
-              linkStyle +
-              " cursor-pointer logout-btn bg-red-600 hover:bg-red-800 hover:border-gray-300"
-            }
+            className={`capitalize relative z-10 bg-red-700 border flex gap-3 flex-nowrap items-center text-lg lg:text-xl rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion font-bold show-tooltip cursor-pointer logout-btn  hover:bg-red-800 hover:border-gray-300 ${
+              isSideBarHidden && " justify-center md:py-[6px]  "
+            }`}
           >
             <RiLogoutCircleLine className="w-6 flex-shrink-0 " />
             <span
               className={
                 isSideBarHidden
-                  ? absoluteTooltipStyle +
-                    " shadow-gray-600 " +
-                    " bg-red-600 text-white"
+                  ? "absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm text-sm rounded-sm py-2 px-3 transition pointer-events-none opacity-0  shadow-gray-600 bg-red-700 text-white"
                   : ""
               }
             >

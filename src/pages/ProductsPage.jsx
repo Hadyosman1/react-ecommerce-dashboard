@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const ProductsPage = () => {
-  return <div className="">ProductsPage</div>;
+  return <Outlet />;
 };
 
 export default ProductsPage;

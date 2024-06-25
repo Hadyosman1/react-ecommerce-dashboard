@@ -2,14 +2,14 @@
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
-const UsersPageHeader = ({ title }) => {
+const PageHeader = ({ title, redirectTo }) => {
   return (
-    <div className="flex justify-between items-center flex-wrap">
+    <div className="flex justify-between items-center gap-3 flex-wrap">
       <h1 className="text-3xl font-bold py-1 text-secondarybreakColor border-b-2 border-mainBreakColor">
         {title}
       </h1>
       <Link
-        to={"/dashboard/users"}
+        to={redirectTo}
         className="flex items-center bg-blue-700/80 border px-3 py-1 rounded text-secondarybreakColor transition hover:bg-blue-900 active:scale-95 "
       >
         <TbArrowBackUp className="text-xl" />
@@ -19,4 +19,4 @@ const UsersPageHeader = ({ title }) => {
   );
 };
 
-export default UsersPageHeader;
+export default PageHeader;

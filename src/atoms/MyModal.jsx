@@ -2,17 +2,17 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../store/slices/modalSlice";
 import AcceptDeleteUserBtn from "../layouts/users-layout/AcceptDeleteUserBtn";
+import AcceptDeleteProductBtn from "../layouts/products-layout/AcceptDeleteProductBtn";
 const MyModal = () => {
   const {
     isModalVisible,
     title,
     body,
     button,
-    userInfo: { id, token },
+    Info: { id, token },
   } = useSelector((state) => state.modalSlice);
   const dispatch = useDispatch();
 
-  
   return (
     <div
       onClick={() => dispatch(closeModal())}
@@ -35,7 +35,7 @@ const MyModal = () => {
         <div className=" border-b-2 bodrer-slate-700">
           <p
             className={`${
-              button === "danger" ? " text-red-600 " : " text-slate-700 "
+              button.includes("delete") ? " text-red-700 " : " text-slate-700 "
             } font-semibold py-2 `}
           >
             {body}
@@ -49,7 +49,12 @@ const MyModal = () => {
           >
             Close
           </button>
-          {button === "delete" && <AcceptDeleteUserBtn id={id} token={token} />}
+          {button === "deleteUser" && (
+            <AcceptDeleteUserBtn id={id} token={token} />
+          )}
+          {button === "deleteProduct" && (
+            <AcceptDeleteProductBtn id={id} token={token} />
+          )}
         </div>
       </div>
     </div>

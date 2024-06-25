@@ -4,11 +4,13 @@ import { LuImagePlus } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, getUsersRoles } from "../../store/slices/usersSlice";
-import UsersPageHeader from "../../atoms/UsersPageHeader";
+import UsersPageHeader from "../../atoms/PageHeader";
 import { useNavigate } from "react-router-dom";
 import VerySmallSpinner from "../../atoms/VerySmallSpinner";
-import { Notyf } from "notyf";
-const notyf = new Notyf();
+import RoundedLoader from "../../atoms/RoundedLoader";
+import { openImageLightBox } from "../../store/slices/imageLightBoxSlice";
+import checkFileSize from "../../utils/checkFileSize";
+
 const AddUser = () => {
   const [image, setImage] = useState({});
   const [confirmPassError, setConfirmPassError] = useState("");
@@ -28,11 +30,7 @@ const AddUser = () => {
     const myform = e.target;
 
     if (image.name) {
-      const size = image.size / 1024 / 100;
-
-      if (size.toFixed() >= 31) {
-        return notyf.error("image must be less than 3 MB..!");
-      }
+      return checkFileSize(image);
     }
 
     if (myform.password.value !== myform.confirmPassword.value) {
@@ -52,83 +50,88 @@ const AddUser = () => {
 
   return (
     <section className=" text-secondarybreakColor">
-      <UsersPageHeader title={"Add User"} />
+      <UsersPageHeader redirectTo={"/dashboard/users"} title={"Add User"} />
       <div className="my-8">
-        <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-4 py-6 md:px-8 md:py-10 flex flex-col items-center">
-          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-            <div className="flex items-start flex-col justify-start">
-              <label
-                htmlFor="firstName"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                First Name:
-              </label>
-              <input
-                placeholder="John"
-                type="text"
-                required
-                id="firstName"
-                name="firstName"
-                className="w-full px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
-              />
-            </div>
-
-            <div className="flex items-start flex-col justify-start">
-              <label
-                htmlFor="lastName"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                Last Name:
-              </label>
-              <input
-                placeholder="Doe"
-                type="text"
-                required
-                id="lastName"
-                name="lastName"
-                className="w-full px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
-              />
-            </div>
-
-            <div className="flex items-start flex-col justify-start">
-              <label
-                htmlFor="email"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                Email:
-              </label>
-              <input
-                placeholder="example@mail.com"
-                type="email"
-                required
-                id="email"
-                autoComplete="email"
-                name="email"
-                className="w-full px-2 placeholder:text-gray-400  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
-              />
-            </div>
-
-            <div className="relative flex items-start flex-col justify-start">
-              <label
-                htmlFor="avatar"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                Avatar:
-              </label>
-              <div className="upload w-full relative items-center gap-2  font-semibold flex px-2 py-1 border border-gray-300 rounded-md text-sky-500/80 cursor-pointer">
-                <LuImagePlus className="text-sky-400 text-2xl " /> Upload Avatar
+        {!isPending ? (
+          <div className="max-w-lg mx-auto  bg-white  rounded-lg shadow-md px-4 py-6 md:px-8 md:py-10 flex flex-col items-center">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full flex flex-col gap-4"
+            >
+              <div className="flex items-start flex-col justify-start">
+                <label
+                  htmlFor="firstName"
+                  className="text-sm text-mainBreakColor mr-2"
+                >
+                  First Name:
+                </label>
                 <input
-                  onChange={(e) => setImage(e.target.files[0])}
-                  type="file"
-                  accept="image/*"
-                  id="avatar"
-                  name="avatar"
-                  className="w-full h-full rotate-180 opacity-0 cursor-pointer absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  placeholder="John"
+                  type="text"
+                  required
+                  id="firstName"
+                  name="firstName"
+                  className="w-full px-2 placeholder:text-gray-400   py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
                 />
               </div>
-              {image?.name && (
-                <div
-                  className={`
+
+              <div className="flex items-start flex-col justify-start">
+                <label
+                  htmlFor="lastName"
+                  className="text-sm text-mainBreakColor   mr-2"
+                >
+                  Last Name:
+                </label>
+                <input
+                  placeholder="Doe"
+                  type="text"
+                  required
+                  id="lastName"
+                  name="lastName"
+                  className="w-full px-2 placeholder:text-gray-400   py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                />
+              </div>
+
+              <div className="flex items-start flex-col justify-start">
+                <label
+                  htmlFor="email"
+                  className="text-sm text-mainBreakColor  mr-2"
+                >
+                  Email:
+                </label>
+                <input
+                  placeholder="example@mail.com"
+                  type="email"
+                  required
+                  id="email"
+                  autoComplete="email"
+                  name="email"
+                  className="w-full px-2 placeholder:text-gray-400  py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                />
+              </div>
+
+              <div className="relative flex items-start flex-col justify-start">
+                <label
+                  htmlFor="avatar"
+                  className="text-sm text-mainBreakColor   mr-2"
+                >
+                  Avatar:
+                </label>
+                <div className="upload w-full relative items-center gap-2  font-semibold flex px-2 py-1 border border-gray-300 rounded-md text-sky-500/80 cursor-pointer">
+                  <LuImagePlus className="text-sky-400 text-2xl " /> Upload
+                  Avatar
+                  <input
+                    onChange={(e) => setImage(e.target.files[0])}
+                    type="file"
+                    accept="image/*"
+                    id="avatar"
+                    name="avatar"
+                    className="w-full h-full rotate-180 opacity-0 cursor-pointer absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  />
+                </div>
+                {image?.name && (
+                  <div
+                    className={`
                   flex justify-center
                   w-full transition
                   lg:w-[initial]
@@ -148,75 +151,87 @@ const AddUser = () => {
                   lg:after:border-transparent
                   lg:after:border-l-slate-500
                   `}
+                  >
+                    <img
+                      onClick={() =>
+                        dispatch(
+                          openImageLightBox({
+                            image: URL.createObjectURL(image),
+                          })
+                        )
+                      }
+                      className="max-h-52 cursor-pointer lg:max-w-40 lg:max-h-32 bg-slate-100 rounded border-2 border-slate-400"
+                      src={URL.createObjectURL(image)}
+                      alt="avatar"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-start flex-col justify-start">
+                <label
+                  htmlFor="role"
+                  className="text-sm text-mainBreakColor   mr-2"
                 >
-                  <img
-                    className="max-h-52 lg:max-w-40 lg:max-h-32 bg-slate-100 rounded border-2 border-slate-400"
-                    src={URL.createObjectURL(image)}
-                    alt="avatar"
-                  />
-                </div>
-              )}
-            </div>
+                  Role:
+                </label>
+                <select
+                  id="role"
+                  name="role"
+                  className="w-full cursor-pointer px-2 text-slate-600 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                >
+                  {roles.map((role) => (
+                    <option key={role} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="flex items-start flex-col justify-start">
-              <label
-                htmlFor="role"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                Role:
-              </label>
-              <select
-                id="role"
-                name="role"
-                className="w-full cursor-pointer px-2 text-slate-600  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
-              >
-                {roles.map((role) => (
-                  <option key={role} value={role}>
-                    {role}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="text-sm text-mainBreakColor   mr-2"
+                >
+                  Password:
+                </label>
+                <PasswordInput name="password" id="password" />
+              </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="text-sm text-mainBreakColor  dark:text-gray-200 mr-2"
-              >
-                Password:
-              </label>
-              <PasswordInput name="password" id="password" />
-            </div>
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className={`text-sm text-mainBreakColor mr-2 ${
+                    confirmPassError && "text-red-600"
+                  } `}
+                >
+                  Confirm Password:
+                </label>
+                <PasswordInput
+                  setConfirmPassError={setConfirmPassError}
+                  confirmPassError={confirmPassError}
+                  name="confirmPassword"
+                  id="confirmPassword"
+                />
+                {confirmPassError && (
+                  <div className="text-red-600">{confirmPassError}</div>
+                )}
+              </div>
 
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className={`text-sm text-mainBreakColor dark:text-gray-200 mr-2 ${
-                  confirmPassError && "text-red-600"
-                } `}
+              <button
+                disabled={isPending}
+                type="submit"
+                className="flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-medium py-1.5 px-4 rounded-lg shadow-md"
               >
-                Confirm Password:
-              </label>
-              <PasswordInput
-                setConfirmPassError={setConfirmPassError}
-                confirmPassError={confirmPassError}
-                name="confirmPassword"
-                id="confirmPassword"
-              />
-              {confirmPassError && (
-                <div className="text-red-600">{confirmPassError}</div>
-              )}
-            </div>
-
-            <button
-              disabled={isPending}
-              type="submit"
-              className="flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-medium py-1.5 px-4 rounded-lg shadow-md"
-            >
-              {isPending && <VerySmallSpinner />} Submit
-            </button>
-          </form>
-        </div>
+                {isPending && <VerySmallSpinner />} Submit
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="relative flex justify-center py-8 min-h-[80svh]">
+            <RoundedLoader />
+          </div>
+        )}
       </div>
     </section>
   );

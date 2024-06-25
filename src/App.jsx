@@ -25,10 +25,13 @@ import ProductsPage from "./pages/ProductsPage";
 import CategoriesPage from "./pages/CategoriesPage";
 
 //----------------- users -----------------
-import UsersRoot from "./layouts/users-layout/Index";
+import UsersRoot from "./layouts/users-layout/UsersRoot";
 import EditUser from "./layouts/users-layout/EditUser";
 import AddUser from "./layouts/users-layout/AddUser";
 import UsersPage from "./pages/UsersPage";
+import ProductsRoot from "./layouts/products-layout/ProductsRoot";
+import AddProduct from "./layouts/products-layout/AddProduct";
+import EditProduct from "./layouts/products-layout/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,20 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <ProductsPage />,
+        children: [
+          {
+            index: true,
+            element: <ProductsRoot />,
+          },
+          {
+            path: "add_product",
+            element: <AddProduct />,
+          },
+          {
+            path: "edit/:id",
+            element: <EditProduct />,
+          },
+        ],
       },
       {
         path: "users",
@@ -60,7 +77,7 @@ const router = createBrowserRouter([
             element: <EditUser />,
           },
           {
-            path: "add",
+            path: "add_user",
             element: <AddUser />,
           },
         ],
