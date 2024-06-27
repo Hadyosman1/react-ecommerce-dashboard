@@ -7,11 +7,11 @@ const Table = ({ tHeadItems, children }) => {
         className=" 
           border-collapse 
           align-middle text-center 
-          flex-grow bg-secondarybreakColor 
+          flex-grow bg-secondary-200 
           border-slate-400
           "
       >
-        <thead className="bg-mainBreakColor text-secondarybreakColor">
+        <thead className="bg-mainBreakColor text-slate-200 ">
           <tr className=" border-b-2 border-slate-400 *:border *:border-slate-300 *:p-1.5 *:md:p-2 ">
             {tHeadItems.map((item) => (
               <th key={item.name}>
@@ -23,7 +23,7 @@ const Table = ({ tHeadItems, children }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="even:*:bg-gray-300 text-main font-semibold">
+        <tbody className="odd:*:bg-main  text-secondarybreakColor font-semibold">
           {children}
         </tbody>
       </table>

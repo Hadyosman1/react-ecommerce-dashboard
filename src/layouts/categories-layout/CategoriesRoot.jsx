@@ -38,7 +38,7 @@ const CategoriesRoot = () => {
         </h1>
         <Link
           to="add_category"
-          className="flex items-center gap-1 bg-green-800 border px-3 py-1 rounded text-secondarybreakColor transition hover:bg-green-900 active:scale-95 "
+          className="flex items-center gap-1 bg-green-800 border px-3 py-1 rounded text-slate-200 transition hover:bg-green-900 active:scale-95 "
         >
           <IoAddCircleOutline className="text-xl" /> Add Category
         </Link>

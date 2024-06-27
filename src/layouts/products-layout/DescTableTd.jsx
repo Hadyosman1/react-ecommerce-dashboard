@@ -23,7 +23,7 @@ const DescTableTd = ({ description }) => {
         <p className="line-clamp-4 ">{description}</p>
         <span
           onClick={handleShow}
-          className="inline-block text-sky-500 cursor-pointer"
+          className="inline-block text-mainBreakColor cursor-pointer"
         >
           Read All
         </span>

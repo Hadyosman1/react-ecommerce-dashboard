@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logOut } from "../store/slices/authSlice";
+import { setTheme } from "../store/slices/themeSlice";
 
 //pictures
 import logo from "../assets/logo.jpg";
@@ -14,6 +15,8 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { IoHomeOutline } from "react-icons/io5";
 import { LuArrowLeftSquare } from "react-icons/lu";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
 
 const navLinks = [
   {
@@ -47,8 +50,10 @@ const SideBar = () => {
   const [isSideBarHidden, setIsSideBarHidden] = useState(false);
   const [isIconMenuHidden, setIsMenuHidden] = useState(false);
   const { user } = useSelector((state) => state.authSlice);
+  const theme = useSelector((state) => state.themeSlice);
   const dispatch = useDispatch();
 
+  console.log(theme);
   useEffect(() => {
     const checkIsMobile = () => {
       if (window.innerWidth <= 700) {
@@ -206,10 +211,29 @@ const SideBar = () => {
             </li>
           ))}
         </ul>
-        <div className="pt-3 border-t border-secondarybreakColor">
+
+        <div className="my-2">
+          <span
+            onClick={() =>
+              dispatch(setTheme(theme === "light" ? "dark" : "light"))
+            }
+            className={linkStyle + ` cursor-pointer `}
+          >
+            {theme === "light" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
+            <span
+              className={
+                isSideBarHidden ? absoluteTooltipStyle + "" : " font-semibold "
+              }
+            >
+              {theme === "light" ? "dark" : "light"} mode
+            </span>
+          </span>
+        </div>
+
+        <div className="pt-2 border-t border-secondarybreakColor">
           <span
             onClick={handleLogOut}
-            className={`capitalize relative z-10 bg-red-700 border flex gap-3 flex-nowrap items-center text-lg lg:text-xl rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion font-bold show-tooltip cursor-pointer logout-btn  hover:bg-red-800 hover:border-gray-300 ${
+            className={`capitalize relative z-10 bg-red-700 border flex gap-3 flex-nowrap items-center text-lg lg:text-xl rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion text-white font-bold show-tooltip cursor-pointer logout-btn  hover:bg-red-800 hover:border-gray-300 ${
               isSideBarHidden && " justify-center md:py-[6px]  "
             }`}
           >
