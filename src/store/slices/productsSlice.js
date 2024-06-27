@@ -25,6 +25,27 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getSingleProduct = createAsyncThunk(
+  "products/getSingleProduct",
+  async (args, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+
+    try {
+      const res = await fetch(`${apiUrl}/api/products/${args.id}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.msg);
+      } else {
+        return data;
+      }
+    } catch (err) {
+      notyf.error(err.message);
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 export const addProduct = createAsyncThunk(
   "products/addProduct",
   async (args, thunkAPI) => {
@@ -71,7 +92,6 @@ export const deleteProduct = createAsyncThunk(
         throw new Error(data.msg);
       } else {
         notyf.success(`Product Deleted Successfully...👍`);
-        dispatch(getProducts());
         dispatch(closeModal());
         return data;
       }
@@ -82,12 +102,55 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (args, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
+
+    try {
+      const res = await fetch(`${apiUrl}/api/products/${args.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${args.token}`,
+        },
+        body: args.formData,
+      });
+
+      const data = res.json();
+
+      if (!res.ok) {
+        throw new Error(data.msg);
+      } else {
+        dispatch(getProducts());
+        args.navigate("/dashboard/products");
+        notyf.success(`Product Updated Successfully...👍`);
+        return data;
+      }
+    } catch (err) {
+      notyf.error(err.message);
+      return rejectWithValue(err.messsage);
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
     isPending: false,
     error: null,
+    singleProduct: {
+      rating: {
+        rate: 0,
+        count: 0,
+      },
+      _id: "",
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+      image: "",
+    },
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -130,6 +193,35 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(addProduct.rejected, (state, action) => {
+        state.isPending = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(getSingleProduct.pending, (state) => {
+        state.isPending = true;
+        state.error = null;
+      })
+      .addCase(getSingleProduct.fulfilled, (state, action) => {
+        state.isPending = false;
+        state.error = null;
+        state.singleProduct = action.payload;
+      })
+      .addCase(getSingleProduct.rejected, (state, action) => {
+        state.isPending = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(updateProduct.pending, (state) => {
+        state.isPending = true;
+        state.error = null;
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.isPending = false;
+        state.error = null;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
         state.isPending = false;
         state.error = action.payload;
       });

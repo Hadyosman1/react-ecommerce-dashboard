@@ -41,8 +41,8 @@ const EditUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (uploadedImage?.name) {
-      return checkFileSize(uploadedImage);
+    if (!checkFileSize(uploadedImage) && uploadedImage.name) {
+      return false;
     }
 
     const formData = new FormData();

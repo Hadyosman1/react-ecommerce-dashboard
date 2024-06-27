@@ -32,6 +32,9 @@ import UsersPage from "./pages/UsersPage";
 import ProductsRoot from "./layouts/products-layout/ProductsRoot";
 import AddProduct from "./layouts/products-layout/AddProduct";
 import EditProduct from "./layouts/products-layout/EditProduct";
+import CategoriesRoot from "./layouts/categories-layout/CategoriesRoot";
+import AddCategory from "./layouts/categories-layout/AddCategory";
+import EditCategory from "./layouts/categories-layout/EditCategory";
 
 const router = createBrowserRouter([
   {
@@ -83,12 +86,26 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "profile",
-        element: <ProfilePage />,
-      },
-      {
         path: "categories",
         element: <CategoriesPage />,
+        children: [
+          {
+            index: true,
+            element: <CategoriesRoot />,
+          },
+          {
+            path: "add_category",
+            element: <AddCategory />,
+          },
+          {
+            path: "edit/:id",
+            element: <EditCategory />,
+          },
+        ],
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
       },
     ],
   },

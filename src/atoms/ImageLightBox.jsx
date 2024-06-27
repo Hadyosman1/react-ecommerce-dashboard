@@ -26,7 +26,7 @@ const ImageLightBox = () => {
           />
         </div>
         <img
-          className="w-full rounded-md bg-white object-contain max-h-[350px]"
+          className="w-full rounded-md bg-white object-contain max-h-[400px]"
           src={image}
           alt={image}
         />

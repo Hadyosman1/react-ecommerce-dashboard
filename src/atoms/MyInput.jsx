@@ -8,9 +8,13 @@ const MyInput = ({
   autoComplete,
   required,
   max,
+  value,
+  onChange,
 }) => {
   return (
     <input
+      step={"any"}
+      onChange={onChange}
       max={max}
       id={id}
       type={type}
@@ -18,6 +22,7 @@ const MyInput = ({
       placeholder={placeholder}
       autoComplete={autoComplete}
       required={required || false}
+      value={value}
       className="
       w-full px-2 
     placeholder:text-gray-400 

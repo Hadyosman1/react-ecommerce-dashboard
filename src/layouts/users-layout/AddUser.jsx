@@ -29,8 +29,8 @@ const AddUser = () => {
     e.preventDefault();
     const myform = e.target;
 
-    if (image.name) {
-      return checkFileSize(image);
+    if (!checkFileSize(image) && image.name) {
+      return false;
     }
 
     if (myform.password.value !== myform.confirmPassword.value) {

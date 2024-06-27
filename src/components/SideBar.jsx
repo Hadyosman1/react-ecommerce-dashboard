@@ -45,7 +45,7 @@ const navLinks = [
 
 const SideBar = () => {
   const [isSideBarHidden, setIsSideBarHidden] = useState(false);
-  const [isMenuHidden, setIsMenuHidden] = useState(false);
+  const [isIconMenuHidden, setIsMenuHidden] = useState(false);
   const { user } = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
 
@@ -72,6 +72,43 @@ const SideBar = () => {
     dispatch(logOut({ userId: user._id, token: user.token }));
   };
 
+  const handleUserIamgeClicked = (e) => {
+    document.addEventListener("fullscreenerror", () => {
+      alert("some thing wrong at full screen mode...!");
+    });
+
+    if (e.target.requestFullscreen) {
+      e.target.requestFullscreen();
+      e.target.style.borderRadius = 0;
+    } else if (e.target.webkitRequestFullscreen) {
+      /* Safari */
+      e.target.webkitRequestFullscreen();
+      e.target.style.borderRadius = 0;
+    } else if (e.target.msRequestFullscreen) {
+      /* IE11 */
+      e.target.msRequestFullscreen();
+      e.target.style.borderRadius = 0;
+    }
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        e.target.style.borderRadius = "50%";
+      }
+    });
+
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+  };
+
   const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-mainBreakColor hover:bg-main hover:border-mainBreakColor ${
     isSideBarHidden && " justify-center md:py-[6px]  tranistion "
   } font-bold show-tooltip`;
@@ -90,7 +127,7 @@ const SideBar = () => {
         }`}
       >
         {/* head */}
-        {!isMenuHidden && (
+        {!isIconMenuHidden && (
           <span
             className={`flex gap-3 flex-wrap-reverse items-center text-3xl w-full  transition mt-2  ${
               isSideBarHidden ? " justify-center" : "justify-between"
@@ -124,18 +161,19 @@ const SideBar = () => {
         {/* head */}
 
         {/* user*/}
-        <Link
-          to={"profile"}
+        <div
           className={`dashboard-user relative border-b-2 border-secondarybreakColor mt-6 pb-3 font-medium flex gap-3 flex-nowrap items-center hover:[filter:brightness(110%)]  ${
             isSideBarHidden && "justify-center"
           }`}
         >
           <img
-            className="max-w-10 cursor-pointer border-2 shadow-md shadow-secondarybreakColor rounded-full "
+            onClick={handleUserIamgeClicked}
+            className="max-w-12 transition object-contain bg-secondarybreakColor cursor-pointer aspect-square border-2 shadow-md shadow-secondarybreakColor rounded-full "
             src={user.avatar}
             alt={"user"}
           />
-          <div
+          <Link
+            to={"profile"}
             className={`flex flex-col text-sm ${
               isSideBarHidden && absoluteTooltipStyle + "-translate-y-[30%]"
             }`}
@@ -144,8 +182,8 @@ const SideBar = () => {
               @{user.firstName + " " + user.lastName}
             </h1>
             <h2 className="lowercase first-letter:capitalize">{user.role}</h2>
-          </div>
-        </Link>
+          </Link>
+        </div>
         {/* user*/}
 
         <ul

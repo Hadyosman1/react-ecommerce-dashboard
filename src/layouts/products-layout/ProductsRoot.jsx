@@ -55,7 +55,7 @@ const ProductsRoot = () => {
 
       {!isPending ? (
         <Table tHeadItems={tableHeader}>
-          {products.map((pro) => (
+          {products.toReversed().map((pro) => (
             <tr
               key={pro._id}
               className="border-b border-slate-400 *:px-1 *:py-2  *:md:px-2 *:md:py-3 "
@@ -80,6 +80,7 @@ const ProductsRoot = () => {
               </td>
               <td className="">{pro.rating.rate}</td>
               <td className="">{pro.rating.count}</td>
+
               <td className="">
                 <div className="flex gap-1 flex-wrap items-center justify-center mx-auto max-w-20 md:max-w-32">
                   <Link
@@ -112,6 +113,7 @@ const ProductsRoot = () => {
                   </button>
                 </div>
               </td>
+              
             </tr>
           ))}
         </Table>

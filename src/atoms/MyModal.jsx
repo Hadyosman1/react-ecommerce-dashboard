@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../store/slices/modalSlice";
 import AcceptDeleteUserBtn from "../layouts/users-layout/AcceptDeleteUserBtn";
 import AcceptDeleteProductBtn from "../layouts/products-layout/AcceptDeleteProductBtn";
+import AcceptDeleteCategoryBtn from "../layouts/categories-layout/AcceptDeleteCategoryBtn";
 const MyModal = () => {
   const {
     isModalVisible,
@@ -16,7 +17,7 @@ const MyModal = () => {
   return (
     <div
       onClick={() => dispatch(closeModal())}
-      className={`fixed inset-0 bg-black/65 flex justify-center items-center z-50 transition duration-[0.6s] ${
+      className={`fixed inset-0 bg-gray-900/50 flex justify-center items-center z-50 transition duration-[0.6s] ${
         !isModalVisible && " scale-0 translate-y-[-120%] "
       }`}
     >
@@ -54,6 +55,9 @@ const MyModal = () => {
           )}
           {button === "deleteProduct" && (
             <AcceptDeleteProductBtn id={id} token={token} />
+          )}
+          {button === "deleteCategory" && (
+            <AcceptDeleteCategoryBtn id={id} token={token} />
           )}
         </div>
       </div>

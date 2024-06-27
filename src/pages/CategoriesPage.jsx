@@ -1,8 +1,7 @@
+import { Outlet } from "react-router-dom";
 
 const CategoriesPage = () => {
-  return (
-    <section className=" text-white ">CategoriesPage</section>
-  )
-}
+  return <Outlet />;
+};
 
-export default CategoriesPage
+export default CategoriesPage;
