@@ -5,7 +5,7 @@ import "notyf/notyf.min.css";
 import RootLayout from "./layouts/RootLayout";
 
 //----------------- login -----------------
-import LoginPage from "./pages/LoginPage";
+import LoginPage, { loginLoader } from "./pages/LoginPage";
 
 //----------------- forget pass -----------------
 import RootForgetPassLayout from "./layouts/forget-pass-layouts/RootForgetPassLayout";
@@ -35,11 +35,15 @@ import EditProduct from "./layouts/products-layout/EditProduct";
 import CategoriesRoot from "./layouts/categories-layout/CategoriesRoot";
 import AddCategory from "./layouts/categories-layout/AddCategory";
 import EditCategory from "./layouts/categories-layout/EditCategory";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setTheme } from "./store/slices/themeSlice";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
+    loader: loginLoader,
   },
   {
     path: "dashboard",
@@ -125,6 +129,18 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const prefersColorScheme = window.matchMedia(
+      "(prefers-color-scheme: dark;)"
+    ).matches
+      ? "dark"
+      : "light";
+
+    dispatch(setTheme(localStorage.getItem("theme") || prefersColorScheme));
+  }, [dispatch]);
+
   return <RouterProvider router={router} />;
 }
 

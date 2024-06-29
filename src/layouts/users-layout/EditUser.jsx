@@ -111,7 +111,7 @@ const EditUser = () => {
             </div>
 
             <div className="flex items-start flex-col justify-start">
-              <label htmlFor="email" className="text-sm text-sky-800   mr-2">
+              <label htmlFor="email" className="text-sm text-sky-800  mr-2">
                 Email:
               </label>
               <input
@@ -123,9 +123,9 @@ const EditUser = () => {
                 id="email"
                 autoComplete="email"
                 name="email"
-                className="w-full opacity-70 pointer-events-none px-2 placeholder:text-gray-400  py-1 rounded-md border border-gray-300  focus:outline-none focus:ring-1 focus:ring-sky-400 sm:text-sm sm:leading-6"
+                className="w-full opacity-70 pointer-events-none px-2 placeholder:text-gray-400  py-1 rounded-md border border-gray-300  focus:outline-none sm:text-sm sm:leading-6"
               />
-              <span className="text-sm bg-orange-800 p-1 px-2 mt-1 rounded font-semibold">
+              <span className="text-sm bg-orange-800 text-white p-1 px-2 mt-2 rounded font-semibold">
                 {"You Can't Change E-mail"}
               </span>
             </div>

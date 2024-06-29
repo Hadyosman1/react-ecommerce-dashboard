@@ -105,13 +105,13 @@ const AddProduct = () => {
               <div className="flex items-start flex-col justify-start gap-2">
                 <label
                   htmlFor="category"
-                  className="text text-mainBreakColor  mr-2"
+                  className=" text-mainBreakColor  mr-2"
                 >
                   Category:
                 </label>
                 {!isPending ? (
                   <select
-                    className="w-full p-1.5 rounded border border-slate-300 focus:ring-1  focus:outline-none focus:ring-mainBreakColor"
+                    className="w-full text-mainBreakColor p-1.5 rounded border border-slate-300 focus:ring-1  focus:outline-none focus:ring-mainBreakColor"
                     name="category"
                     id="category"
                   >

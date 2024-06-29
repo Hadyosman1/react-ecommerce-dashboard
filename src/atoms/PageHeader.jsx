@@ -10,7 +10,7 @@ const PageHeader = ({ title, redirectTo }) => {
       </h1>
       <Link
         to={redirectTo}
-        className="flex items-center bg-blue-700/80 border px-3 py-1 rounded text-white transition hover:bg-blue-900 active:scale-95 "
+        className="flex items-center bg-blue-800 border px-3 py-1 rounded text-white transition hover:bg-blue-900 active:scale-95 "
       >
         <TbArrowBackUp className="text-xl" />
         Back

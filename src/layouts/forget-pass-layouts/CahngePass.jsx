@@ -11,14 +11,9 @@ const notyf = new Notyf();
 
 const CahngePass = () => {
   const { isPending, confirmUser } = useSelector((state) => state.authSlice);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!confirmUser._id) {
-      navigate("/forget_password");
-    }
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,22 +33,32 @@ const CahngePass = () => {
       })
     );
   };
+
+  useEffect(() => {
+    if (!confirmUser._id) {
+      navigate("/", { replace: true });
+    }
+  }, [navigate, confirmUser]);
+
   return (
     <>
       <img
-        className="max-w-40 mx-auto rounded-xl"
+        className="max-w-40 mx-auto rounded-md"
         src={confirmUser.avatar}
         alt="user"
       />
       <form onSubmit={handleSubmit} className="space-y-3">
         <fieldset className="space-y-1">
-          <label className="font-semibold" htmlFor="password">
+          <label className="font-semibold text-sky-500" htmlFor="password">
             new password
           </label>
           <PasswordInput name={"password"} id={"password"} />
         </fieldset>
         <fieldset className="space-y-1">
-          <label className="font-semibold" htmlFor="confirmPassword">
+          <label
+            className="font-semibold text-sky-500"
+            htmlFor="confirmPassword"
+          >
             confirm new password
           </label>
           <PasswordInput name={"confirmPassword"} id={"confirmPassword"} />
@@ -62,12 +67,12 @@ const CahngePass = () => {
           type="submit"
           className="
               flex w-full justify-center rounded-md 
-              bg-mainBreakColor px-3 py-1.5 text-sm
-              font-semibold leading-6 text-secondarybreakColor
+              bg-sky-700 px-3 py-1.5 text-sm
+              font-semibold leading-6 text-white
               shadow-sm hover:opacity-80
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-offset-2
-              focus-visible:outline-mainBreakColor
+              focus-visible:outline-sky-800
               "
         >
           Confrim

@@ -3,36 +3,32 @@ import pic from "../../assets/forgetPass.jpg";
 import { getUserByEmail } from "../../store/slices/authSlice";
 import SmallLoadingSpinner from "../../atoms/SmallLoadingSpinner";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+
 const ConfirmEmail = () => {
-  const { isPending, confirmUser } = useSelector((state) => state.authSlice);
+  const { isPending } = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
-    dispatch(getUserByEmail({ email }));
+    dispatch(getUserByEmail({ email, navigate }));
   };
-
-  useEffect(() => {
-    if (confirmUser._id) {
-      navigate("/forget_password/change_password", { replace: true });
-    }
-  });
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center">Forget Password</h1>
+      <h1 className="text-2xl font-bold text-center text-sky-600">
+        Forget Password
+      </h1>
       <img
-        className="max-w-64 rounded mix-blend-multiply"
+        className="max-w-64 rounded-lg object-cover bg-slate-500"
         src={pic}
         alt="forget pass"
       />
       <div>
         <form onSubmit={handleSubmit} className="space-y-3">
           <fieldset className="space-y-1">
-            <label className="font-semibold" htmlFor="email">
+            <label className="font-semibold text-sky-600" htmlFor="email">
               E-mail
             </label>
             <input
@@ -49,12 +45,12 @@ const ConfirmEmail = () => {
             type="submit"
             className="
               flex w-full justify-center rounded-md 
-              bg-mainBreakColor px-3 py-1.5 text-sm
-              font-semibold leading-6 text-secondarybreakColor
+              bg-sky-700 px-3 py-1.5 text-sm
+              font-semibold leading-6 text-white
               shadow-sm hover:opacity-80
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-offset-2
-              focus-visible:outline-mainBreakColor
+              focus-visible:outline-sky-800
               "
           >
             Confrim

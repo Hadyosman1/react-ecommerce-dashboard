@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --main: #212730;
     --secondary: #252b34;
@@ -10,9 +10,9 @@
     --teal: #22b3dc;
     --gray: #e5e5e5;
   }
-}
+} */
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --main: #9e9e9e;
     --secondary: #b1b0b0;
@@ -20,6 +20,79 @@
     --teal: #013a97;
     --gray: #111156;
   }
+} */
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* Initial colors */
+  transition: scrollbar-color 0.4s ease;
+}
+
+/* Styles for the scrollbar on hover, focus, and active states */
+*:focus,
+*:hover,
+*:active {
+  scrollbar-color: var(--teal) var(--main);
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    transition: background-color 0.4s ease;
+    background-color: transparent;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    transition: background-color 0.4s ease;
+    background-color: transparent;
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--teal);
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--main);
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    @apply bg-mainBreakColor;
+  }
+}
+
+@media (width < 676px) {
+  * {
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  * {
+    scrollbar-color: var(--teal) var(--main);
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+
+  --main: #212730;
+  --secondary: #252b34;
+  --secondary-200: #2f3744;
+  --teal: #22b3dc;
+  --gray: #e5e5e5;
+  --gradient: #00747c;
 }
 
 .dark {
@@ -28,35 +101,16 @@
   --secondary-200: #2f3744;
   --teal: #22b3dc;
   --gray: #e5e5e5;
+  --gradient: #22b3dc;
 }
 
 .light {
-  --main: #9e9e9e;
-  --secondary: #b1b0b0;
-  --secondary-200: #d0cfcf;
-  --teal: #0a59d8;
-  --gray: #0a0a3c;
-}
-
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color-scheme: light dark;
-
-  ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--teal);
-    border-radius: 2px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: var(--main);
-  }
-
-  ::-webkit-scrollbar-corner {
-    @apply bg-mainBreakColor;
-  }
+  --main: #c7d0d1;
+  --secondary: #ddd;
+  --secondary-200: #efefef;
+  --teal: #3d4e4eee;
+  --gray: #025293;
+  --gradient: #da620c;
 }
 
 @layer base {
@@ -68,8 +122,16 @@
     @apply overflow-y-hidden;
   }
 
+  a {
+    @apply transition;
+  }
+
   label {
     cursor: pointer;
+  }
+
+  label:has(+ input:read-only) {
+    cursor: default;
   }
 
   button:disabled {
@@ -100,9 +162,30 @@
   }
 
   .my-side-nav a.active {
-    background: linear-gradient(150deg, var(--teal) 50%, var(--secondary));
+    background: linear-gradient(
+      150deg,
+      var(--gradient) 50%,
+      var(--secondary-200)
+    );
     box-shadow: 0 0 5px var(--teal);
     border-color: var(--teal);
+  }
+
+  html.light {
+    .my-side-nav a.active {
+      background: linear-gradient(
+        30deg,
+        var(--gradient) 60%,
+        var(--secondary-200)
+      );
+      color: #eee;
+      box-shadow: 0 0 7px #025293;
+      border-color: #025293;
+    }
+
+    .my-side-nav a {
+      color: var(--gray);
+    }
   }
 
   div.upload:has(input[type="file"]:focus) {

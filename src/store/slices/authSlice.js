@@ -66,6 +66,7 @@ export const getUserByEmail = createAsyncThunk(
       if (!res.ok) {
         throw new Error(data.msg);
       } else {
+        args.navigate("/forget_password/change_password");
         return data;
       }
     } catch (err) {
@@ -78,7 +79,7 @@ export const getUserByEmail = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (args, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+    const { rejectWithValue, dispatch } = thunkAPI;
     const { email, _id, password, navigate } = args;
     try {
       const res = await fetch(`${apiUrl}/api/users/reset_password`, {
@@ -94,7 +95,8 @@ export const resetPassword = createAsyncThunk(
         throw new Error(data.msg);
       } else {
         notyf.success(`${data.msg}!`);
-        navigate("/")
+        navigate("/");
+        dispatch(resetConfirmUser());
         return data.user;
       }
     } catch (err) {
@@ -113,7 +115,14 @@ const authSlice = createSlice({
     confirmUser: {},
     passwordChanged: false,
   },
-  reducers: {},
+  reducers: {
+    resetConfirmUser: (state) => {
+      state.confirmUser = {};
+    },
+    resetPasswordChanged: (state) => {
+      state.passwordChanged = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(logIn.pending, (state) => {
@@ -177,9 +186,11 @@ const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isPending = false;
         state.error = action.payload;
-        state.passwordChanged = true;
+        state.passwordChanged = false;
       });
   },
 });
+
+export const { resetConfirmUser, resetPasswordChanged } = authSlice.actions;
 
 export default authSlice.reducer;

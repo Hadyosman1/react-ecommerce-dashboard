@@ -10,14 +10,14 @@ const themeSlice = createSlice({
   initialState: localStorage.getItem("theme") ?? prefersColorScheme,
   reducers: {
     setTheme: (state, action) => {
-      localStorage.setItem("theme", action.payload);
-
       if (action.payload == "dark") {
-        document.body.classList.add("dark");
-        document.body.classList.remove("light");
+        localStorage.setItem("theme", "dark");
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
       } else {
-        document.body.classList.add("light");
-        document.body.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        document.documentElement.classList.add("light");
+        document.documentElement.classList.remove("dark");
       }
 
       return action.payload;

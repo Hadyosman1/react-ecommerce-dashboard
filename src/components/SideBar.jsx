@@ -14,9 +14,9 @@ import { TbCategory2 } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { IoHomeOutline } from "react-icons/io5";
-import { LuArrowLeftSquare } from "react-icons/lu";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
+import { TbLayoutSidebarRightExpand } from "react-icons/tb";
 
 const navLinks = [
   {
@@ -53,7 +53,6 @@ const SideBar = () => {
   const theme = useSelector((state) => state.themeSlice);
   const dispatch = useDispatch();
 
-  console.log(theme);
   useEffect(() => {
     const checkIsMobile = () => {
       if (window.innerWidth <= 700) {
@@ -114,18 +113,18 @@ const SideBar = () => {
     }
   };
 
-  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-mainBreakColor hover:bg-main hover:border-mainBreakColor ${
+  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-secondarybreakColor hover:bg-main hover:border-secondarybreakColor ${
     isSideBarHidden && " justify-center md:py-[6px]  tranistion "
   } font-bold show-tooltip`;
 
-  const absoluteTooltipStyle = `absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-mainBreakColor rounded-sm py-2 px-3 ${
+  const absoluteTooltipStyle = `absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-secondary-200 rounded-sm py-2 px-3 ${
     isSideBarHidden && " transition "
   } pointer-events-none opacity-0 `;
 
   return (
     <>
       <aside
-        className={`transition flex-shrink-0 flex flex-col text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
+        className={`transition flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
           isSideBarHidden
             ? " w-14 md:w-14 lg:w-14 lg:px-[8px] "
             : " sm:w-2/10 w-60 "
@@ -139,7 +138,7 @@ const SideBar = () => {
             } `}
           >
             {!isSideBarHidden && (
-              <span className="text-sm lg:text-lg xl:text-xl text-mainBreakColor font-bold capitalize flex items-center">
+              <span className="text-sm lg:text-lg xl:text-xl text-secondarybreakColor font-bold capitalize flex items-center">
                 <img
                   className="rounded  max-w-8 object-cover aspect-square inline-block mr-2 "
                   src={logo}
@@ -154,7 +153,7 @@ const SideBar = () => {
                 isSideBarHidden ? "justify-center" : "justify-end"
               }`}
             >
-              <LuArrowLeftSquare
+              <TbLayoutSidebarRightExpand
                 className={`flex-shrink-0 cursor-pointer  transition hover:text-mainBreakColor ${
                   isSideBarHidden && "-scale-100"
                 }`}
@@ -167,13 +166,13 @@ const SideBar = () => {
 
         {/* user*/}
         <div
-          className={`dashboard-user relative border-b-2 border-secondarybreakColor mt-6 pb-3 font-medium flex gap-3 flex-nowrap items-center hover:[filter:brightness(110%)]  ${
+          className={`dashboard-user relative border-b-2 border-secondarybreakColor mt-4 pb-3 font-medium flex gap-3 flex-nowrap items-center hover:[filter:brightness(110%)]  ${
             isSideBarHidden && "justify-center"
           }`}
         >
           <img
             onClick={handleUserIamgeClicked}
-            className="max-w-12 transition object-contain bg-secondarybreakColor cursor-pointer aspect-square border-2 shadow-md shadow-secondarybreakColor rounded-full "
+            className="max-w-12 transition object-contain bg-main cursor-pointer aspect-square border-2 shadow-md shadow-secondarybreakColor rounded-full "
             src={user.avatar}
             alt={"user"}
           />

@@ -2,13 +2,13 @@
 
 const Table = ({ tHeadItems, children }) => {
   return (
-    <div className="flex overflow-x-scroll ">
+    <div className="flex overflow-x-auto  shadow-md shadow-sky-800 m-0">
       <table
         className=" 
           border-collapse 
           align-middle text-center 
-          flex-grow bg-secondary-200 
-          border-slate-400
+          flex-grow bg-secondary-200
+          border border-slate-300
           "
       >
         <thead className="bg-mainBreakColor text-slate-200 ">
@@ -23,7 +23,7 @@ const Table = ({ tHeadItems, children }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="odd:*:bg-main  text-secondarybreakColor font-semibold">
+        <tbody className="even:*:bg-main  text-secondarybreakColor font-semibold">
           {children}
         </tbody>
       </table>

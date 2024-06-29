@@ -52,7 +52,7 @@ const UsersRoot = () => {
 
         {!isPending ? (
           <Table tHeadItems={tableHeader}>
-            {users.map((user) => {
+            {users.map((user, i) => {
               if (user._id === CurrentUser._id) {
                 return;
               }
@@ -60,7 +60,7 @@ const UsersRoot = () => {
               return (
                 <tr
                   key={user._id}
-                  className="border-b border-slate-400 *:px-1 *:py-2  *:md:px-2 *:md:py-3 "
+                  className={`${  i !== users.length-1 &&" border-b border-slate-400 "} *:px-1 *:py-2  *:md:px-2 *:md:py-3 `}
                 >
                   <td className="">
                     {user.firstName} {user.lastName}

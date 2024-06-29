@@ -147,7 +147,7 @@ const EditProduct = () => {
                       }))
                     }
                     value={formInputsData.category}
-                    className="w-full p-1.5 rounded border border-slate-300 focus:ring-1  focus:outline-none focus:ring-mainBreakColor"
+                    className="w-full p-1.5 rounded border text-slate-800 border-slate-300 focus:ring-1  focus:outline-none focus:ring-mainBreakColor"
                     name="category"
                     id="category"
                   >
