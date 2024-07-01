@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Card from "../components/Card";
 
@@ -24,7 +24,7 @@ const HomePage = () => {
 
   const date = new Date();
 
-  const handleResponsiveChartWidth = () => {
+  const handleResponsiveChartWidth = useCallback(() => {
     if (window.innerWidth > 1000) {
       setfirstChartWidth(700);
       setPieChartWidth(400);
@@ -35,7 +35,7 @@ const HomePage = () => {
       setfirstChartWidth(370);
       setPieChartWidth(250);
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", handleResponsiveChartWidth);
@@ -43,7 +43,8 @@ const HomePage = () => {
     return () => {
       window.removeEventListener("resize", handleResponsiveChartWidth);
     };
-  }, []);
+  }, [handleResponsiveChartWidth]);
+
 
   return (
     <section className=" flex flex-col gap-4 ">
@@ -74,7 +75,7 @@ const HomePage = () => {
       {/* header */}
 
       {/* cards */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5 lg:gap-3">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5 lg:gap-3">
         <Card
           bg="bg-emerald-700"
           shadow="shadow-emerald-600"

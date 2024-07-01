@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Notyf } from "notyf";
 import { closeModal } from "./modalSlice";
+import { resetCurrentUser } from "./authSlice";
 const notyf = new Notyf();
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -107,7 +108,6 @@ export const deleteUser = createAsyncThunk(
   async (args, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
-      console.log("===========", args.token, args.id);
       const res = await fetch(`${apiUrl}/api/users/${args.id}`, {
         method: "DELETE",
         headers: {
@@ -115,13 +115,22 @@ export const deleteUser = createAsyncThunk(
           Authorization: `Bearer ${args.token}`,
         },
       });
+
       const data = await res.json();
+
       if (!res.ok) {
         throw new Error(data.msg);
       } else {
         notyf.success("user deleted successfully 👍");
         dispatch(closeModal());
-        dispatch(getUsers({ token: args.token }));
+
+        if (args.status === "currentUser") {
+          dispatch(resetCurrentUser());
+          args.navigate("/");
+        } else {
+          dispatch(getUsers({ token: args.token }));
+        }
+
         return data;
       }
     } catch (err) {
@@ -148,7 +157,16 @@ export const updateUser = createAsyncThunk(
       } else {
         notyf.success("user updated successfully 👍");
         dispatch(getUsers({ token: args.token }));
-        args.navigate("/dashboard/users");
+
+        if (args.status === "currentUser") {
+          dispatch(resetCurrentUser(data));
+        }
+
+        dispatch(closeModal());
+
+        if (args.navigate) {
+          args.navigate("/dashboard/users");
+        }
         return data;
       }
     } catch (err) {

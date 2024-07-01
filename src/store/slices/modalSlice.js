@@ -8,6 +8,7 @@ const modalSlice = createSlice({
     title: "",
     body: "",
     Info: { id: "", token: "" },
+    status: "",
   },
   reducers: {
     openModal: (state, action) => {
@@ -19,6 +20,7 @@ const modalSlice = createSlice({
         id: action.payload.Info.id,
         token: action.payload.Info.token,
       };
+      state.status = action.payload.status;
     },
     closeModal: (state) => {
       state.isModalVisible = false;
@@ -29,6 +31,7 @@ const modalSlice = createSlice({
       state.body = "";
       state.Info.id = "";
       state.Info.token = "";
+      state.status = "";
     },
   },
 });

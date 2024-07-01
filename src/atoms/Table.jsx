@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 const Table = ({ tHeadItems, children }) => {
+console.log(children);
   return (
     <div className="flex overflow-x-auto  shadow-md shadow-sky-800 m-0">
       <table
@@ -23,9 +24,19 @@ const Table = ({ tHeadItems, children }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="even:*:bg-main  text-secondarybreakColor font-semibold">
-          {children}
-        </tbody>
+        {children[1] ? (
+          <tbody className="even:*:bg-main  text-secondarybreakColor font-semibold">
+            {children}
+          </tbody>
+        ) : (
+          <tfoot className=" text-mainBreakColor text-2xl text-center">
+            <tr>
+              <td className="py-6 text-bold " colSpan={9}>
+                No Data
+              </td>
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );

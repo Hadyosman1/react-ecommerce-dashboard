@@ -6,6 +6,7 @@ import { deleteCategory } from "../../store/slices/categoriesSlice";
 const AcceptDeleteCategoryBtn = ({ id, token }) => {
   const { isPending } = useSelector((state) => state.categoriesSlice);
   const dispatch = useDispatch();
+  
   return (
     <button
       disabled={isPending}

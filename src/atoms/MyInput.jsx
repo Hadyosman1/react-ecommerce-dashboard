@@ -10,9 +10,13 @@ const MyInput = ({
   max,
   value,
   onChange,
+  defaultValue,
+  readOnly,
 }) => {
   return (
     <input
+      readOnly={readOnly}
+      defaultValue={defaultValue}
       step={"any"}
       onChange={onChange}
       max={max}

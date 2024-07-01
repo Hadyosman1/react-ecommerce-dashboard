@@ -38,12 +38,17 @@ import EditCategory from "./layouts/categories-layout/EditCategory";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setTheme } from "./store/slices/themeSlice";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
     loader: loginLoader,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
   {
     path: "dashboard",

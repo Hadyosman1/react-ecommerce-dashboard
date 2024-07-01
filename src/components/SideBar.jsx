@@ -17,6 +17,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import { TbLayoutSidebarRightExpand } from "react-icons/tb";
+import requestFullScreen from "../utils/requestFullScreen";
 
 const navLinks = [
   {
@@ -76,43 +77,6 @@ const SideBar = () => {
     dispatch(logOut({ userId: user._id, token: user.token }));
   };
 
-  const handleUserIamgeClicked = (e) => {
-    document.addEventListener("fullscreenerror", () => {
-      alert("some thing wrong at full screen mode...!");
-    });
-
-    if (e.target.requestFullscreen) {
-      e.target.requestFullscreen();
-      e.target.style.borderRadius = 0;
-    } else if (e.target.webkitRequestFullscreen) {
-      /* Safari */
-      e.target.webkitRequestFullscreen();
-      e.target.style.borderRadius = 0;
-    } else if (e.target.msRequestFullscreen) {
-      /* IE11 */
-      e.target.msRequestFullscreen();
-      e.target.style.borderRadius = 0;
-    }
-
-    document.addEventListener("fullscreenchange", () => {
-      if (!document.fullscreenElement) {
-        e.target.style.borderRadius = "50%";
-      }
-    });
-
-    if (document.fullscreenElement) {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        /* Safari */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        /* IE11 */
-        document.msExitFullscreen();
-      }
-    }
-  };
-
   const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-secondarybreakColor hover:bg-main hover:border-secondarybreakColor ${
     isSideBarHidden && " justify-center md:py-[6px]  tranistion "
   } font-bold show-tooltip`;
@@ -127,8 +91,8 @@ const SideBar = () => {
         className={`transition flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
           isSideBarHidden
             ? " w-14 md:w-14 lg:w-14 lg:px-[8px] "
-            : " sm:w-2/10 w-60 "
-        }`}
+            : " sm:w-2/10 w-60 overflow-auto"
+        }    ${isIconMenuHidden && isSideBarHidden && "overflow-x-hidden"}`}
       >
         {/* head */}
         {!isIconMenuHidden && (
@@ -171,7 +135,8 @@ const SideBar = () => {
           }`}
         >
           <img
-            onClick={handleUserIamgeClicked}
+            id="side-bar-avatar"
+            onClick={requestFullScreen}
             className="max-w-12 transition object-contain bg-main cursor-pointer aspect-square border-2 shadow-md shadow-secondarybreakColor rounded-full "
             src={user.avatar}
             alt={"user"}
@@ -183,33 +148,35 @@ const SideBar = () => {
             }`}
           >
             <h1 className="whitespace-nowrap">
-              @{user.firstName + " " + user.lastName}
+              {user.firstName + " " + user.lastName}
             </h1>
             <h2 className="lowercase first-letter:capitalize">{user.role}</h2>
           </Link>
         </div>
         {/* user*/}
 
-        <ul
-          className={`${
-            isSideBarHidden ? "my-4" : "my-6"
-          } my-side-nav flex-1 space-y-3 lg:space-y-4 `}
-        >
-          {navLinks.map(({ name, path, icon }) => (
-            <li key={name}>
-              <NavLink
-                end={name.toLowerCase() === "home"}
-                className={linkStyle}
-                to={path}
-              >
-                {icon}
-                <span className={isSideBarHidden ? absoluteTooltipStyle : ""}>
-                  {name}
-                </span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        <div className="flex-1  ">
+          <ul
+            className={`${
+              isSideBarHidden ? "my-4" : "my-6"
+            } my-side-nav  space-y-3 lg:space-y-4 `}
+          >
+            {navLinks.map(({ name, path, icon }) => (
+              <li key={name}>
+                <NavLink
+                  end={name.toLowerCase() === "home"}
+                  className={linkStyle}
+                  to={path}
+                >
+                  {icon}
+                  <span className={isSideBarHidden ? absoluteTooltipStyle : ""}>
+                    {name}
+                  </span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="my-2">
           <span

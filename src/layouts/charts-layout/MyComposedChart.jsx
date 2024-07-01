@@ -50,7 +50,7 @@ const data = [
   },
 ];
 
-const MyComposedChart = ({firstChartWidth}) => {
+const MyComposedChart = ({ firstChartWidth }) => {
   return (
     <ComposedChart width={firstChartWidth} height={240} data={data}>
       <XAxis dataKey="name" />

@@ -62,7 +62,6 @@ export const getUserByEmail = createAsyncThunk(
         `${apiUrl}/api/users/get_user_by_email/${args.email}`
       );
       const data = await res.json();
-      console.log(res, data);
       if (!res.ok) {
         throw new Error(data.msg);
       } else {
@@ -122,6 +121,15 @@ const authSlice = createSlice({
     resetPasswordChanged: (state) => {
       state.passwordChanged = false;
     },
+    resetCurrentUser: (state, action) => {
+      if (!action.payload) {
+        localStorage.removeItem("user");
+        state.user = {};
+      } else {
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -136,7 +144,6 @@ const authSlice = createSlice({
       })
       .addCase(logIn.rejected, (state, action) => {
         state.isPending = false;
-        console.log(action);
         state.error = action.payload;
       });
 
@@ -191,6 +198,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { resetConfirmUser, resetPasswordChanged } = authSlice.actions;
+export const { resetConfirmUser, resetPasswordChanged, resetCurrentUser } =
+  authSlice.actions;
 
 export default authSlice.reducer;

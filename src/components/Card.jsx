@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+import React from "react";
 
 /* eslint-disable react/prop-types */
 const Card = ({
@@ -14,10 +16,10 @@ const Card = ({
 }) => {
   return (
     <div
-      className={`shadow-md transition hover:-translate-y-1  ${shadow} ${bg}  p-4 rounded place-content-center`}
+      className={`shadow-md transition hover:-translate-y-1  ${shadow} ${bg}  p-4 rounded place-content-center max-w-full`}
     >
       <p className="flex justify-between items-center flex-wrap-reverse  gap-2">
-        <span className={` text-white flex-shrink-0  font-medium uppercase`}>{title}</span>
+        <span className={` text-white flex-shrink-0  font-medium uppercase text-sm`}>{title}</span>
         <span className={`flex items-center gap-2 text-lg font-semibold ${subTitleColor}`}>
           {subTitle}
         </span>
@@ -37,4 +39,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default React.memo(Card);

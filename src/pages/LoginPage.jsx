@@ -15,7 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user.token) {
+    if (Object.keys(user).length) {
       navigate("/dashboard", { replace: true });
     }
   }, [user, navigate]);
@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="flex min-h-screen flex-1 flex-col justify-center items-center px-6 py-8 lg:px-8 overflow-y-auto ">
+      <div className="flex gap-4 min-h-screen flex-1 flex-col justify-center items-center px-6 py-8 lg:px-8 overflow-y-auto ">
         <button
           onClick={() =>
             dispatch(setTheme(theme === "light" ? "dark" : "light"))

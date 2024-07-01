@@ -11,7 +11,7 @@ export const getProducts = createAsyncThunk(
 
     try {
       const res = await fetch(`${apiUrl}/api/products`);
-      const data = res.json();
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(data.msg);
@@ -58,7 +58,7 @@ export const addProduct = createAsyncThunk(
         },
         body: args.formData,
       });
-      const data = res.json();
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(data.msg);
@@ -69,7 +69,11 @@ export const addProduct = createAsyncThunk(
         return data;
       }
     } catch (err) {
-      notyf.error(err.message);
+      notyf.error({
+        message: err.message,
+        duration: 3000,
+        type: "error",
+      });
       return rejectWithValue(err.message);
     }
   }
@@ -87,7 +91,7 @@ export const deleteProduct = createAsyncThunk(
           Authorization: `Bearer ${args.token}`,
         },
       });
-      const data = res.json();
+      const data = await res.json();
       if (!res.ok) {
         throw new Error(data.msg);
       } else {
@@ -96,7 +100,11 @@ export const deleteProduct = createAsyncThunk(
         return data;
       }
     } catch (err) {
-      notyf.err(err.message);
+      notyf.error({
+        message: err.message,
+        duration: 3000,
+        type: "error",
+      });
       return rejectWithValue(err.message);
     }
   }
@@ -116,7 +124,7 @@ export const updateProduct = createAsyncThunk(
         body: args.formData,
       });
 
-      const data = res.json();
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(data.msg);

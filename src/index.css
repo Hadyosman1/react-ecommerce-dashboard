@@ -27,6 +27,7 @@
   scrollbar-width: thin;
   scrollbar-color: transparent transparent; /* Initial colors */
   transition: scrollbar-color 0.4s ease;
+  box-sizing: border-box;
 }
 
 /* Styles for the scrollbar on hover, focus, and active states */
@@ -101,7 +102,7 @@
   --secondary-200: #2f3744;
   --teal: #22b3dc;
   --gray: #e5e5e5;
-  --gradient: #22b3dc;
+  --gradient: #1da2c7;
 }
 
 .light {
@@ -110,7 +111,7 @@
   --secondary-200: #efefef;
   --teal: #3d4e4eee;
   --gray: #025293;
-  --gradient: #da620c;
+  --gradient: #4b5e77;
 }
 
 @layer base {
@@ -119,7 +120,7 @@
   }
 
   body {
-    @apply overflow-y-hidden;
+    @apply h-svh overflow-y-auto;
   }
 
   a {
@@ -132,6 +133,13 @@
 
   label:has(+ input:read-only) {
     cursor: default;
+    pointer-events: none;
+
+    & + input {
+      pointer-events: none;
+      box-shadow: none;
+      user-select: none;
+    }
   }
 
   button:disabled {
@@ -141,10 +149,9 @@
 
   input {
     @apply outline-none 
-    px-2 
-    bg-white 
+    px-2 font-medium
+    bg-white dark:bg-white 
     text-slate-700
-    font-medium
     placeholder:italic
     placeholder:text-secondary-200;
   }
@@ -234,5 +241,9 @@
       visibility: visible;
       scale: 1;
     }
+  }
+
+  .profile_avatar_div:hover .absolute_edit_btn {
+    @apply bg-slate-300 shadow-md opacity-100;
   }
 }

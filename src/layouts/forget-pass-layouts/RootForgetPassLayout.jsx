@@ -8,7 +8,7 @@ const RootForgetPassLayout = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.themeSlice);
   return (
-    <div className="text-slate-500 w-full flex flex-col justify-start items-center min-h-[100svh] pt-6 pb-3 px-12 overflow-y-auto">
+    <div className="text-slate-500 w-full flex flex-col justify-start items-center min-h-[100svh] px-4 py-8  overflow-y-auto">
       <div className="flex items-center justify-between w-full flex-wrap">
         <Link
           to={"/"}
@@ -29,7 +29,7 @@ const RootForgetPassLayout = () => {
           {theme === "light" ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
         </button>
       </div>
-      <div className="mt-8 flex flex-col gap-5 border-2 shadow-lg shadow-secondarybreakColor border-secondarybreakColor bg-secondary-200 rounded px-4 py-7 min-w-72 max-w-[300px]">
+      <div className="mt-8  flex flex-col gap-5 border-2 shadow-lg shadow-secondarybreakColor border-secondarybreakColor bg-secondary-200 rounded px-4 py-7 min-w-72 max-w-full">
         <Outlet />
       </div>
     </div>
