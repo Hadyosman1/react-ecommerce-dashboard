@@ -6,7 +6,7 @@ const notyf = new Notyf();
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async (args, thunkAPI) => {
+  async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
 
     try {
@@ -95,6 +95,7 @@ export const deleteProduct = createAsyncThunk(
       if (!res.ok) {
         throw new Error(data.msg);
       } else {
+        dispatch(getProducts());
         notyf.success(`Product Deleted Successfully...👍`);
         dispatch(closeModal());
         return data;

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 const Table = ({ tHeadItems, children }) => {
-console.log(children);
   return (
     <div className="flex overflow-x-auto  shadow-md shadow-sky-800 m-0">
       <table

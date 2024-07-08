@@ -45,10 +45,12 @@ const router = createBrowserRouter([
     path: "/",
     element: <LoginPage />,
     loader: loginLoader,
+    errorElement: <NotFoundPage />,
   },
   {
     path: "*",
     element: <NotFoundPage />,
+    errorElement: <NotFoundPage />,
   },
   {
     path: "dashboard",

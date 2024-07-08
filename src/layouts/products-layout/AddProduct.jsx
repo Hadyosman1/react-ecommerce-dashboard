@@ -74,7 +74,7 @@ const AddProduct = () => {
                   Title:
                 </label>
                 <MyInput
-                  readOnly={true}
+                  readOnly={false}
                   type="text"
                   id="title"
                   required={true}

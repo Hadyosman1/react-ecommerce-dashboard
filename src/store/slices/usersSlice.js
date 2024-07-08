@@ -156,10 +156,11 @@ export const updateUser = createAsyncThunk(
         throw new Error(data.msg);
       } else {
         notyf.success("user updated successfully 👍");
-        dispatch(getUsers({ token: args.token }));
 
         if (args.status === "currentUser") {
           dispatch(resetCurrentUser(data));
+        } else {
+          dispatch(getUsers({ token: args.token }));
         }
 
         dispatch(closeModal());

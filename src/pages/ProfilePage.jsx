@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import requestFullScreen from "../utils/requestFullScreen";
 import { openModal } from "../store/slices/modalSlice";
 import RoundedLoader from "../atoms/RoundedLoader";
+import { updateUser } from "../store/slices/usersSlice";
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -29,19 +30,25 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const myForm = e.target;
+    console.log(myForm.oldPass?.value);
 
     if (
-      myForm.confirmPass.value !== myForm.newPass.value &&
+      myForm.confirmPass?.value !== myForm.newPass?.value &&
       !isPasswordFieldsHidden
     ) {
-      setConfirmPassError("Passwords don't match");
+      return setConfirmPassError("Passwords don't match...!");
     }
-    return;
-    //todo: complete this function
+
     const formData = new FormData();
     formData.append("firstName", userInputsData.firstName);
     formData.append("lastName", userInputsData.lastName);
-    formData.append("password", userInputsData);
+
+    if (!isPasswordFieldsHidden) {
+      formData.append("oldPassword", myForm.oldPass.value);
+      formData.append("password", myForm.newPass.value);
+    }
+
+    dispatch(updateUser({ id: user._id, status: "currentUser", formData }));
   };
 
   const handleEditAvatar = () => {
@@ -62,14 +69,14 @@ const ProfilePage = () => {
         Profile
       </h1>
 
-      <section className="flex justify-center flex-wrap gap-8 *:rounded *:shadow *:shadow-mainBreakColor">
-        <div className="rounded overflow-hidden  self-start flex-grow-[2]">
-          <div className="flex flex-col gap-3 p-4 items-center  bg-secondary-200 flex-grow-[1]">
+      <section className="flex justify-center flex-wrap gap-6 *:rounded *:shadow *:shadow-mainBreakColor">
+        <div className="rounded overflow-hidden  self-start flex-grow-[1]">
+          <div className="flex flex-col gap-3 p-4 items-center  bg-secondary-200 ">
             <>
-              <div className="profile_avatar_div max-w-52 relative  ">
+              <div className="profile_avatar_div max-w-80 relative  ">
                 <img
                   onClick={requestFullScreen}
-                  className="w-full h-full  object-contain rounded-md shadow cursor-pointer"
+                  className="w-full h-full object-contain rounded-md shadow cursor-pointer"
                   src={user.avatar}
                   alt={user.firstName}
                 />
@@ -139,6 +146,7 @@ const ProfilePage = () => {
                       setCanEditInfo((prev) => {
                         if (prev) {
                           setUserInputsData((prev) => ({ ...prev, ...user }));
+                          setIsPasswordFieldsHidden(true);
                         }
                         return !prev;
                       });
@@ -271,7 +279,7 @@ const ProfilePage = () => {
                         htmlFor="confirmPass"
                         className="text-secondarybreakColor "
                       >
-                        Confirm Password:
+                        Confirm New Password:
                       </label>
                       <PasswordInput
                         confirmPassError={confirmPassError}
@@ -279,6 +287,7 @@ const ProfilePage = () => {
                         id={"confirmPass"}
                         name={"confirmPass"}
                       />
+                      <span className="text-red-600">{confirmPassError}</span>
                     </fieldset>
                   </>
                 )}
