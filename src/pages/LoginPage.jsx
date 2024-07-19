@@ -121,7 +121,6 @@ const LoginPage = () => {
     </>
   );
 };
-
 export default LoginPage;
 
 export const loginLoader = async () => {

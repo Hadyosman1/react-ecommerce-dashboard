@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 const Table = ({ tHeadItems, children }) => {
+  console.log(children);
   return (
     <div className="flex overflow-x-auto  shadow-md shadow-sky-800 m-0">
       <table
@@ -23,7 +24,7 @@ const Table = ({ tHeadItems, children }) => {
             ))}
           </tr>
         </thead>
-        {children[0] ? (
+        {children[0] || (children[0] === undefined && children[1]) ? (
           <tbody className="even:*:bg-main  text-secondarybreakColor font-semibold">
             {children}
           </tbody>
