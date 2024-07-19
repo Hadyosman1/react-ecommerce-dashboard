@@ -37,8 +37,15 @@ const CategoriesRoot = () => {
           Categories
         </h1>
         <Link
+          onClick={(e) => {
+            if (user.role?.toLowerCase() === "user") {
+              return e.preventDefault();
+            }
+          }}
           to="add_category"
-          className="flex items-center gap-1 bg-green-800 border px-3 py-1 rounded text-slate-200 transition hover:bg-green-900 active:scale-95 "
+          className={` ${
+            user.role?.toLowerCase() === "user" && "disabled"
+          } flex items-center gap-1 bg-green-800 border px-3 py-1 rounded text-slate-200 transition hover:bg-green-900 active:scale-95 `}
         >
           <IoAddCircleOutline className="text-xl" /> Add Category
         </Link>
@@ -53,8 +60,15 @@ const CategoriesRoot = () => {
                 <td className="">
                   <div className="flex gap-1 flex-wrap items-center justify-center mx-auto max-w-20 md:max-w-32">
                     <Link
+                      onClick={(e) => {
+                        if (user.role?.toLowerCase() === "user") {
+                          return e.preventDefault();
+                        }
+                      }}
                       to={`edit/${cat._id}`}
-                      className="active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700"
+                      className={`${
+                        user.role?.toLowerCase() === "user" && "disabled"
+                      } active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700`}
                     >
                       <span>
                         <LuFolderEdit />
@@ -63,7 +77,11 @@ const CategoriesRoot = () => {
                     </Link>
 
                     <button
-                      onClick={() =>
+                      onClick={(e) => {
+                        if (user.role?.toLowerCase() === "user") {
+                          return e.preventDefault();
+                        }
+
                         dispatch(
                           openModal({
                             button: "deleteCategory",
@@ -73,9 +91,11 @@ const CategoriesRoot = () => {
                             If You Deleted This Category You Can't Undo This Action...🤔 
                             `,
                           })
-                        )
-                      }
-                      className="active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700"
+                        );
+                      }}
+                      className={` ${
+                        user.role?.toLowerCase() === "user" && "disabled"
+                      } active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700`}
                     >
                       <span>
                         <FaRegTrashCan />

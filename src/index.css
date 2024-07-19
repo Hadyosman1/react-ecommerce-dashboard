@@ -93,7 +93,8 @@
   --secondary-200: #2f3744;
   --teal: #22b3dc;
   --gray: #e5e5e5;
-  --gradient: #00747c;
+  --gradient: #1da2c7;
+  --disable-warn-bg: #eee;
 }
 
 .dark {
@@ -103,6 +104,7 @@
   --teal: #22b3dc;
   --gray: #e5e5e5;
   --gradient: #1da2c7;
+  --disable-warn-bg: #eee;
 }
 
 .light {
@@ -112,6 +114,7 @@
   --teal: #3d4e4eee;
   --gray: #025293;
   --gradient: #4b5e77;
+  --disable-warn-bg: #b6b6b6;
 }
 
 @layer base {
@@ -142,9 +145,33 @@
     }
   }
 
-  button:disabled {
-    cursor: wait;
-    opacity: 0.5;
+  .disabled {
+    cursor: no-drop;
+    filter: brightness(65%);
+    z-index: 1;
+    position: relative;
+
+    &::after {
+      content: "just allowed to manager and admin ⚠🖐";
+      font-size: 12px;
+      position: absolute;
+      background: var(--disable-warn-bg);
+      text-align: center;
+      visibility: hidden;
+      top: 0;
+      left: 0;
+      padding: 5px;
+      border-radius: 6px;
+      color: rgb(255, 0, 0);
+      z-index: 5;
+      transform: translate(-110%, calc(-50% + 10px));
+      transition: all 0.2s ease-in;
+    }
+
+    &:hover::after {
+      visibility: visible;
+      filter: brightness(100%);
+    }
   }
 
   input {

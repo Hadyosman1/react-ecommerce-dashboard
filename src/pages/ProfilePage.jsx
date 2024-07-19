@@ -69,7 +69,7 @@ const ProfilePage = () => {
         Profile
       </h1>
 
-      <section className="flex justify-center flex-wrap gap-6 *:rounded *:shadow *:shadow-mainBreakColor">
+      <section className="flex justify-center items-start flex-wrap gap-6 *:rounded *:shadow *:shadow-mainBreakColor">
         <div className="rounded overflow-hidden  self-start flex-grow-[1]">
           <div className="flex flex-col gap-3 p-4 items-center  bg-secondary-200 ">
             <>

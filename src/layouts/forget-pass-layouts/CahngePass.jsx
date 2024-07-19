@@ -47,6 +47,7 @@ const CahngePass = () => {
         src={confirmUser.avatar}
         alt="user"
       />
+      <h1 className="text-center text-mainBreakColor font-semibold -mt-2">{confirmUser.firstName} {confirmUser.lastName}</h1>
       <form onSubmit={handleSubmit} className="space-y-3">
         <fieldset className="space-y-1">
           <label className="font-semibold text-sky-500" htmlFor="password">

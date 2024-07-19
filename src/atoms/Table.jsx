@@ -23,7 +23,7 @@ const Table = ({ tHeadItems, children }) => {
             ))}
           </tr>
         </thead>
-        {children[1] ? (
+        {children[0] ? (
           <tbody className="even:*:bg-main  text-secondarybreakColor font-semibold">
             {children}
           </tbody>
