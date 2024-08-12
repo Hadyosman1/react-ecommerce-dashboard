@@ -83,13 +83,13 @@ const ProfilePage = () => {
                 <span
                   onClick={handleEditAvatar}
                   className="
-                absolute_edit_btn right-2
-                absolute p-1.5 rounded-full
-                text-mainBreakColor text-2xl
-                bg-slate-200 cursor-pointer
-                opacity-80 hover:opacity-100
-                hover:bg-slate-300 hover:shadow-md  
-                bottom-2 transition 
+                  absolute_edit_btn right-2
+                  absolute p-1.5 rounded-full
+                  text-mainBreakColor text-2xl
+                  bg-slate-200 cursor-pointer
+                  opacity-80 hover:opacity-100
+                  hover:bg-slate-300 hover:shadow-md 
+                  bottom-2 transition 
                 "
                 >
                   <MdOutlineModeEditOutline />
@@ -174,7 +174,7 @@ const ProfilePage = () => {
                     htmlFor="firstName"
                     className="text-secondarybreakColor"
                   >
-                    First Name:
+                    First Name :
                   </label>
                   <MyInput
                     onChange={(e) =>
@@ -198,7 +198,7 @@ const ProfilePage = () => {
                     htmlFor="lastName"
                     className="text-secondarybreakColor"
                   >
-                    Last Name:
+                    Last Name :
                   </label>
                   <MyInput
                     onChange={(e) =>
@@ -219,7 +219,7 @@ const ProfilePage = () => {
 
                 <fieldset className="flex flex-col gap-1 items-start">
                   <label htmlFor="email" className="text-secondarybreakColor">
-                    First Name:
+                    E-mail :
                   </label>
                   <MyInput
                     readOnly={true}
@@ -259,7 +259,7 @@ const ProfilePage = () => {
                         htmlFor="oldPass"
                         className="text-secondarybreakColor "
                       >
-                        Old Password:
+                        Old Password :
                       </label>
                       <PasswordInput id={"oldPass"} name={"oldPass"} />
                     </fieldset>
@@ -269,7 +269,7 @@ const ProfilePage = () => {
                         htmlFor="newPass"
                         className="text-secondarybreakColor "
                       >
-                        New Password:
+                        New Password :
                       </label>
                       <PasswordInput id={"newPass"} name={"newPass"} />
                     </fieldset>
@@ -279,7 +279,7 @@ const ProfilePage = () => {
                         htmlFor="confirmPass"
                         className="text-secondarybreakColor "
                       >
-                        Confirm New Password:
+                        Confirm New Password :
                       </label>
                       <PasswordInput
                         confirmPassError={confirmPassError}

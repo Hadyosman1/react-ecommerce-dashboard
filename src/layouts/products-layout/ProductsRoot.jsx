@@ -76,7 +76,7 @@ const ProductsRoot = () => {
                     onClick={() =>
                       dispatch(openImageLightBox({ image: pro.image }))
                     }
-                    className="cursor-pointer max-w-16 sm:max-w-20 md:max-w-32 aspect-square object-contain "
+                    className="cursor-pointer max-w-20 sm:max-w-24 md:max-w-32 rounded shadow-md object-cover "
                     src={pro.image}
                     alt="user"
                   />
@@ -89,7 +89,7 @@ const ProductsRoot = () => {
               <td className="">{pro.rating.count}</td>
 
               <td className="">
-                <div className="flex gap-1 flex-wrap items-center justify-center mx-auto max-w-20 md:max-w-32">
+                <div className="flex flex-col gap-2 flex-wrap  mx-auto max-w-20 md:max-w-32">
                   <Link
                     onClick={(e) => {
                       if (user.role?.toLowerCase() === "user") {

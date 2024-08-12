@@ -77,9 +77,9 @@ const SideBar = () => {
     dispatch(logOut({ userId: user._id, token: user.token }));
   };
 
-  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-lg lg:text-xl bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-secondarybreakColor hover:bg-main hover:border-secondarybreakColor ${
+  const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-md bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-secondarybreakColor hover:bg-main hover:border-secondarybreakColor ${
     isSideBarHidden && " justify-center md:py-[6px]  tranistion "
-  } font-bold show-tooltip`;
+  } font-semibold show-tooltip`;
 
   const absoluteTooltipStyle = `absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-secondary-200 rounded-sm py-2 px-3 ${
     isSideBarHidden && " transition "
@@ -88,11 +88,11 @@ const SideBar = () => {
   return (
     <>
       <aside
-        className={`transition flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
+        className={`transition-all  flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
           isSideBarHidden
-            ? " w-14 md:w-14 lg:w-14 lg:px-[8px] "
-            : " sm:w-2/10 w-60 overflow-auto"
-        }    ${isIconMenuHidden && isSideBarHidden && "overflow-x-hidden"}`}
+            ? " w-14 md:w-14 lg:w-14 lg:px-[8px]   "
+            : " sm:w-2/10  overflow-auto  "
+        }    ${isIconMenuHidden && isSideBarHidden && " overflow-x-hidden "}`}
       >
         {/* head */}
         {!isIconMenuHidden && (
@@ -199,7 +199,7 @@ const SideBar = () => {
         <div className="pt-2 border-t border-secondarybreakColor">
           <span
             onClick={handleLogOut}
-            className={`capitalize relative z-10 bg-red-700 border flex gap-3 flex-nowrap items-center text-lg lg:text-xl rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion text-white font-bold show-tooltip cursor-pointer logout-btn  hover:bg-red-800 hover:border-gray-300 ${
+            className={`capitalize relative z-10 bg-red-700 border flex gap-3 flex-nowrap items-center text-md rounded-md py-[6px] px-1 md:px-2 md:py-1 tranistion text-white font-bold show-tooltip cursor-pointer logout-btn  hover:bg-red-800 hover:border-gray-300 ${
               isSideBarHidden && " justify-center md:py-[6px]  "
             }`}
           >

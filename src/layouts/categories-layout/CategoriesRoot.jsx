@@ -58,7 +58,7 @@ const CategoriesRoot = () => {
               <tr className="*:py-6 px-4" key={cat._id}>
                 <td>{cat.name}</td>
                 <td className="">
-                  <div className="flex gap-1 flex-wrap items-center justify-center mx-auto max-w-20 md:max-w-32">
+                  <div className="flex gap-2 flex-col mx-auto max-w-20 md:max-w-32">
                     <Link
                       onClick={(e) => {
                         if (user.role?.toLowerCase() === "user") {

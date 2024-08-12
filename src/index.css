@@ -233,14 +233,21 @@
     }
   }
 
+  .password-input-wrapper input {
+    border-radius: 0.375rem 0 0 0.375rem;
+    + span {
+      @apply border-l-2;
+    }
+  }
+
   .password-input-wrapper:has(input:focus) {
     &,
     input {
       box-shadow: 0 0 0 2px var(--teal) inset;
     }
 
-    input {
-      border-radius: inherit;
+    span {
+      @apply border-none;
     }
   }
 

@@ -51,7 +51,7 @@ const LoginPage = () => {
               src={logo}
               alt="Your Company"
             />
-            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-sky-600">
+            <h2 className="my-4 text-center text-2xl font-semibold leading-9 tracking-tight text-sky-600">
               Sign in to your account
             </h2>
           </div>
@@ -92,7 +92,7 @@ const LoginPage = () => {
                 </div>
                 <Link
                   to="forget_password"
-                  className="float-end mt-1 mb-3 inline-block  text-sky-500"
+                  className="float-end my-2 mb-3 inline-block  text-sky-500"
                 >
                   Forgot Password ?
                 </Link>

@@ -60,90 +60,87 @@ const UsersRoot = () => {
         {!isPending ? (
           <Table tHeadItems={tableHeader}>
             {users.map((user, i) => {
-              if (user._id === CurrentUser._id) {
-                return;
-              }
-
-              return (
-                <tr
-                  key={user._id}
-                  className={`${
-                    i !== users.length - 1 && " border-b border-slate-400 "
-                  } *:px-1 *:py-2  *:md:px-2 *:md:py-3 `}
-                >
-                  <td className="">
-                    {user.firstName} {user.lastName}
-                  </td>
-                  <td>
-                    <p>{user.email}</p>
-                  </td>
-                  <td className="flex justify-center items-center">
-                    <img
-                      onClick={() =>
-                        dispatch(openImageLightBox({ image: user.avatar }))
-                      }
-                      className="cursor-pointer max-w-16 sm:max-w-20 md:max-w-32 aspect-square object-contain "
-                      src={user.avatar}
-                      alt="user"
-                    />
-                  </td>
-                  <td
-                    className={`font-bold ${
-                      (user.role === "MANAGER" || user.role === "ADMIN") &&
-                      "text-mainBreakColor"
-                    }`}
+              if (user._id !== CurrentUser._id)
+                return (
+                  <tr
+                    key={user._id}
+                    className={`${
+                      i !== users.length - 1 && " border-b border-slate-400 "
+                    } *:px-1 *:py-2  *:md:px-2 *:md:py-3 `}
                   >
-                    {user.role}
-                  </td>
-                  <td className="">
-                    <div className="flex gap-1 flex-col  mx-auto max-w-20 md:max-w-32">
-                      <Link
-                        onClick={(e) => {
-                          if (CurrentUser.role?.toLowerCase() === "user") {
-                            return e.preventDefault();
-                          }
-                        }}
-                        to={`edit/${user._id}`}
-                        className={` ${
-                          CurrentUser.role?.toLowerCase() === "user" &&
-                          "disabled"
-                        } active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700`}
-                      >
-                        <span>
-                          <LuFolderEdit />
-                        </span>
-                        Edit
-                      </Link>
+                    <td className="">
+                      {user.firstName} {user.lastName}
+                    </td>
+                    <td>
+                      <p>{user.email}</p>
+                    </td>
+                    <td className="flex justify-center items-center">
+                      <img
+                        onClick={() =>
+                          dispatch(openImageLightBox({ image: user.avatar }))
+                        }
+                        className="cursor-pointer max-w-20 sm:max-w-24 md:max-w-32 rounded shadow-md  "
+                        src={user.avatar}
+                        alt="user"
+                      />
+                    </td>
+                    <td
+                      className={`font-bold ${
+                        (user.role === "MANAGER" || user.role === "ADMIN") &&
+                        "text-mainBreakColor"
+                      }`}
+                    >
+                      {user.role}
+                    </td>
+                    <td className="">
+                      <div className="flex gap-2 flex-col  mx-auto max-w-20 md:max-w-32">
+                        <Link
+                          onClick={(e) => {
+                            if (CurrentUser.role?.toLowerCase() === "user") {
+                              return e.preventDefault();
+                            }
+                          }}
+                          to={`edit/${user._id}`}
+                          className={` ${
+                            CurrentUser.role?.toLowerCase() === "user" &&
+                            "disabled"
+                          } active:scale-95 shadow shadow-slate-400 flex flex-grow gap-1 items-center justify-center border border-slate-400 px-2 py-1 rounded bg-sky-600 text-white hover:bg-sky-700`}
+                        >
+                          <span>
+                            <LuFolderEdit />
+                          </span>
+                          Edit
+                        </Link>
 
-                      <button
-                        onClick={(e) => {
-                          if (CurrentUser.role?.toLowerCase() === "user") {
-                            return e.preventDefault();
-                          }
+                        <button
+                          onClick={(e) => {
+                            if (CurrentUser.role?.toLowerCase() === "user") {
+                              return e.preventDefault();
+                            }
 
-                          dispatch(
-                            openModal({
-                              button: "deleteUser",
-                              Info: { id: user._id, token: user.token },
-                              title: "Are You Sure ?",
-                              body: "If You deleted This User You Can't Undo This Action...🤔",
-                            })
-                          );
-                        }}
-                        className={`  ${
-                          CurrentUser.role?.toLowerCase() === "user" &&
-                          "disabled"
-                        } active:scale-95 shadow shadow-slate-400 flex  gap-1 items-center justify-center border  border-slate-400 px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700`}
-                      >
-                        <span>
-                          <FaRegTrashCan />
-                        </span>
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
+                            dispatch(
+                              openModal({
+                                button: "deleteUser",
+                                Info: { id: user._id, token: user.token },
+                                title: "Are You Sure ?",
+                                body: "If You deleted This User You Can't Undo This Action...🤔",
+                              })
+                            );
+                          }}
+                          className={`  ${
+                            CurrentUser.role?.toLowerCase() === "user" &&
+                            "disabled"
+                          } active:scale-95 shadow shadow-slate-400 flex  gap-1 items-center justify-center border  border-slate-400 px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700`}
+                        >
+                          <span>
+                            <FaRegTrashCan />
+                          </span>
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
             })}
           </Table>
         ) : (

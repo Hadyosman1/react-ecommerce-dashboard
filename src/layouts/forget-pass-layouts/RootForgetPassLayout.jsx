@@ -12,7 +12,7 @@ const RootForgetPassLayout = () => {
       <div className="flex items-center justify-between w-full flex-wrap">
         <Link
           to={"/"}
-          className="bg-blue-700 text-white hover:bg-blue-800 py-1 px-2 rounded flex items-center justify-center gap-2"
+          className="bg-blue-700 text-white hover:bg-blue-800 py-1.5 px-2 rounded flex items-center justify-center gap-2 text-sm"
         >
           <FaArrowAltCircleLeft /> Back To Login
         </Link>
@@ -20,7 +20,7 @@ const RootForgetPassLayout = () => {
           onClick={() =>
             dispatch(setTheme(theme === "light" ? "dark" : "light"))
           }
-          className={`self-start   text-2xl rounded-md   border-2 p-1 ${
+          className={`self-start text-2xl rounded-md   border-2 p-1 ${
             theme === "light"
               ? " bg-slate-700  text-sky-300 border-sky-300 "
               : " bg-gray-200 text-amber-600  border-amber-500"
