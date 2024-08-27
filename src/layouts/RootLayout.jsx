@@ -9,6 +9,7 @@ import ImageLightBox from "../atoms/ImageLightBox";
 const RootLayout = () => {
   const navigate = useNavigate();
   const { user, isPending } = useSelector((state) => state.authSlice);
+
   useEffect(() => {
     if (!Object.keys(user).length) {
       navigate("/");
@@ -21,7 +22,7 @@ const RootLayout = () => {
       <MyModal />
       <div className="h-svh flex md:gap-1 ">
         <SideBar />
-        <div className="flex-grow overflow-x-hidden overflow-y-auto min-h-svh bg-secondary-800 py-8 px-2 md:px-3 ">
+        <div className="flex-grow overflow-x-hidden overflow-y-auto min-h-svh bg-secondary-800 py-16 px-2 md:px-3 ">
           <Outlet />
         </div>
       </div>

@@ -49,18 +49,20 @@ const navLinks = [
 
 const SideBar = () => {
   const [isSideBarHidden, setIsSideBarHidden] = useState(false);
-  const [isIconMenuHidden, setIsMenuHidden] = useState(false);
+  const [isMobileScreen, setISMobileScreen] = useState(false);
+
   const { user } = useSelector((state) => state.authSlice);
   const theme = useSelector((state) => state.themeSlice);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     const checkIsMobile = () => {
       if (window.innerWidth <= 700) {
         setIsSideBarHidden(true);
-        setIsMenuHidden(true);
+        setISMobileScreen(true);
       } else {
-        setIsMenuHidden(false);
+        setISMobileScreen(false);
       }
     };
 
@@ -78,7 +80,7 @@ const SideBar = () => {
   };
 
   const linkStyle = `capitalize relative z-10 border border-secondarybreakColor flex gap-3 flex-nowrap items-center text-md bg-secondary-800  rounded-md py-[6px] px-1 md:px-2 md:py-1  hover:ring-2 ring-secondarybreakColor hover:bg-main hover:border-secondarybreakColor ${
-    isSideBarHidden && " justify-center md:py-[6px]  tranistion "
+    isSideBarHidden && " justify-center md:py-[6px] transition "
   } font-semibold show-tooltip`;
 
   const absoluteTooltipStyle = `absolute whitespace-nowrap top-1/2 -right-3 md:-right-[1.5rem] translate-x-[100%] -translate-y-1/2 shadow-sm shadow-current bg-secondarybreakColor text-sm text-secondary-200 rounded-sm py-2 px-3 ${
@@ -88,44 +90,46 @@ const SideBar = () => {
   return (
     <>
       <aside
-        className={`transition-all  flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-2 lg:px-3 ${
+        className={`transition-all z-[1000]  flex-shrink-0 flex flex-col  text-secondarybreakColor bg-secondary-200  p-2 lg:p-3 px-3 lg:px-3 ${
+          isMobileScreen && " fixed h-svh border-mainBreakColor border-r"
+        } ${
           isSideBarHidden
-            ? " w-14 md:w-14 lg:w-14 lg:px-[8px]   "
+            ? " fixed h-svh  -translate-x-full lg:px-[8px]  "
             : " sm:w-2/10  overflow-auto  "
-        }    ${isIconMenuHidden && isSideBarHidden && " overflow-x-hidden "}`}
+        }`}
       >
         {/* head */}
-        {!isIconMenuHidden && (
-          <span
-            className={`flex gap-3 flex-wrap-reverse items-center text-3xl w-full  transition mt-2  ${
-              isSideBarHidden ? " justify-center" : "justify-between"
-            } `}
-          >
-            {!isSideBarHidden && (
-              <span className="text-sm lg:text-lg xl:text-xl text-secondarybreakColor font-bold capitalize flex items-center">
-                <img
-                  className="rounded  max-w-8 object-cover aspect-square inline-block mr-2 "
-                  src={logo}
-                  alt="logo"
-                />
-                dashboard
-              </span>
-            )}
-
-            <span
-              className={`flex flex-1 ${
-                isSideBarHidden ? "justify-center" : "justify-end"
-              }`}
-            >
-              <TbLayoutSidebarRightExpand
-                className={`flex-shrink-0 cursor-pointer  transition hover:text-mainBreakColor ${
-                  isSideBarHidden && "-scale-100"
-                }`}
-                onClick={() => setIsSideBarHidden(!isSideBarHidden)}
+        <span
+          className={`flex gap-3 flex-wrap-reverse items-center text-3xl w-full  transition mt-2  ${
+            isSideBarHidden ? " justify-center " : "justify-between"
+          } `}
+        >
+          {!isSideBarHidden && (
+            <span className="text-sm lg:text-lg xl:text-xl text-secondarybreakColor font-bold capitalize flex items-center">
+              <img
+                className="rounded  max-w-8 object-cover aspect-square inline-block mr-2 "
+                src={logo}
+                alt="logo"
               />
+              dashboard
             </span>
+          )}
+
+          <span
+            className={`flex flex-1 ${
+              isSideBarHidden
+                ? " z-[1000] fixed top-5 left-20 text-mainBreakColor bg-main p-0.5 rounded shadow shadow-mainBreakColor "
+                : " justify-end "
+            }`}
+          >
+            <TbLayoutSidebarRightExpand
+              className={`flex-shrink-0  cursor-pointer transition hover:text-mainBreakColor ${
+                isSideBarHidden && " -scale-100 "
+              }`}
+              onClick={() => setIsSideBarHidden(!isSideBarHidden)}
+            />
           </span>
-        )}
+        </span>
         {/* head */}
 
         {/* user*/}
